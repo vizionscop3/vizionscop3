@@ -1,0 +1,549 @@
+---
+alwaysApply: true
+---
+
+# VizionScop3 LLC — Website Project Rules
+
+## PROJECT CONTEXT
+
+You are building the official business website for **VizionScop3 LLC**, an AI-native technology solutions company founded by Denward Lee Aulder (Vizion). The site serves nonprofits, small businesses, corporations, and enterprises. It must communicate that VizionScop3 is innovative, modern, revolutionary, and enterprise-ready.
+
+**Always reference `VizionScop3_Website_PRD.md` in the project root as the authoritative source of truth.** When this file and the PRD conflict, the PRD wins.
+
+---
+
+## NORTH STAR PRINCIPLES
+
+1. **Enterprise credibility over novelty** — Every design decision must feel trustworthy to a Fortune 500 procurement lead. Innovation is expressed through polish and precision, not gimmickry.
+2. **AI-native is a brand promise** — The site itself must feel like it was built by an AI-native team: fast, refined, signature details that template builders can't replicate.
+3. **Mobile-first, always** — 60%+ of traffic will be mobile. Design for 375px, enhance upward.
+4. **Performance is a feature** — Ship zero regressions to Lighthouse scores. If an animation costs 100ms of TTI, it needs to earn that cost.
+5. **Accessibility is non-negotiable** — WCAG 2.1 AA minimum. No exceptions, no "we'll fix it later."
+
+---
+
+## TECHNOLOGY STACK (LOCKED)
+
+```
+Framework:     Next.js 15+ (App Router, React Server Components)
+Language:      TypeScript (strict mode enabled)
+Styling:       Tailwind CSS v3+ with custom design tokens
+Motion:        Framer Motion (primary), GSAP (scroll-heavy sequences only)
+3D (optional): React Three Fiber + Drei
+CMS:           Sanity.io (portfolio, case studies, blog)
+Forms:         React Hook Form + Zod validation
+Email:         Resend
+Scheduling:    Cal.com embed
+Hosting:       Vercel
+Analytics:     Vercel Analytics + Plausible
+Errors:        Sentry
+Icons:         Lucide React (primary), custom SVG for brand marks
+```
+
+**Do not introduce new dependencies without justifying:**
+- What it replaces
+- Bundle size impact
+- Why existing tools can't solve it
+
+---
+
+## DESIGN SYSTEM (SOURCE OF TRUTH)
+
+### Colors — Use CSS variables only, never hex directly in components
+
+```css
+/* Backgrounds */
+--color-obsidian:        #0A0A0F   /* Primary background */
+--color-deep-space:      #12121A   /* Surface elevation */
+--color-midnight:        #1A1A2E   /* Elevated cards */
+
+/* Accents */
+--color-electric-cyan:   #00F0FF   /* Primary action, innovation */
+--color-plasma-violet:   #7C3AED   /* Secondary, creative work */
+--color-solar-gold:      #FFB800   /* Highlights, success states */
+--color-circuit-green:   #00FF88   /* Data, AI indicators */
+
+/* Text */
+--color-signal-white:    #FAFAFA   /* Primary text on dark */
+--color-echo-gray:       #9CA3AF   /* Secondary text */
+--color-void-gray:       #374151   /* Borders, dividers */
+```
+
+**Color usage rules:**
+- Electric Cyan is reserved for primary CTAs and key interactive moments — do not overuse
+- Plasma Violet pairs with creative/design service contexts
+- Solar Gold only for celebration moments (success states, key metrics)
+- Never place Circuit Green next to Electric Cyan (vibration clash)
+- All accent colors require 4.5:1 minimum contrast against their background
+
+### Typography
+
+```
+Display:  Space Grotesk (500, 600, 700)  — headlines, hero, section titles
+Body:     Inter (400, 500, 600)          — paragraphs, nav, UI labels
+Mono:     JetBrains Mono (400, 500)      — code, metrics, technical specs
+```
+
+**Typography rules:**
+- Load fonts via `next/font/google` — never external CDN links
+- Use `display: swap` equivalent behavior
+- Display font scales: 48px → 64px → 80px → 96px (mobile → wide)
+- Body default: 16px mobile, 17px desktop — never below 14px
+- Line-height: 1.2 for display, 1.6 for body, 1.5 for UI
+- Max line-length for prose: 68 characters
+
+### Spacing — Use the scale, no arbitrary values
+
+```
+--space-1:  0.25rem   (4px)
+--space-2:  0.5rem    (8px)
+--space-3:  0.75rem   (12px)
+--space-4:  1rem      (16px)
+--space-6:  1.5rem    (24px)
+--space-8:  2rem      (32px)
+--space-12: 3rem      (48px)
+--space-16: 4rem      (64px)
+--space-24: 6rem      (96px)
+--space-32: 8rem      (128px)
+```
+
+**Section vertical padding:** `py-16 md:py-24 lg:py-32`
+**Container max-width:** `max-w-7xl` (1280px) with `px-4 md:px-8` gutters
+
+### Border Radius
+
+```
+--radius-sm: 0.375rem   — badges, small chips
+--radius-md: 0.75rem    — buttons, inputs
+--radius-lg: 1.25rem    — cards, panels
+--radius-xl: 2rem       — hero containers, feature sections
+```
+
+### Motion
+
+```
+--duration-fast:    200ms   — hover, focus, micro-interactions
+--duration-normal:  400ms   — transitions, reveals
+--duration-slow:    800ms   — hero animations, section entrances
+
+--ease-out-expo:    cubic-bezier(0.19, 1, 0.22, 1)
+--ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1)
+```
+
+**Motion rules:**
+- Every animation must serve a purpose — never decorative motion without meaning
+- Always wrap Framer Motion with `prefers-reduced-motion` checks
+- 60fps minimum — if it drops frames, simplify
+- One signature motion moment per page maximum (hero, featured work reveal, etc.)
+- Page transitions: fade + 8px translate, never slides or scale
+
+---
+
+## FILE & FOLDER STRUCTURE
+
+```
+vizionscop3-site/
+├── app/
+│   ├── (marketing)/              # Route group for public pages
+│   │   ├── page.tsx              # Homepage
+│   │   ├── about/page.tsx
+│   │   ├── services/
+│   │   │   ├── page.tsx          # Services hub
+│   │   │   └── [slug]/page.tsx   # Individual service
+│   │   ├── work/
+│   │   │   ├── page.tsx          # Portfolio grid
+│   │   │   └── [slug]/page.tsx   # Case study
+│   │   ├── industries/
+│   │   │   └── [slug]/page.tsx
+│   │   ├── insights/
+│   │   │   ├── page.tsx
+│   │   │   └── [slug]/page.tsx
+│   │   └── contact/page.tsx
+│   ├── api/
+│   │   ├── contact/route.ts
+│   │   └── newsletter/route.ts
+│   ├── layout.tsx                # Root layout
+│   ├── globals.css               # Tailwind + tokens
+│   ├── sitemap.ts                # Dynamic sitemap
+│   ├── robots.ts                 # Robots config
+│   ├── manifest.ts               # PWA manifest
+│   └── opengraph-image.tsx       # Default OG image
+├── components/
+│   ├── ui/                       # Base primitives (Button, Input, etc.)
+│   ├── sections/                 # Page sections (Hero, CTAStrip, etc.)
+│   ├── layout/                   # Header, Footer, Nav
+│   ├── motion/                   # Animation wrappers
+│   ├── cards/                    # Service, Project, Article cards
+│   ├── forms/                    # Contact, Newsletter
+│   └── brand/                    # Logo, marks
+├── lib/
+│   ├── sanity/
+│   │   ├── client.ts
+│   │   ├── queries.ts
+│   │   └── types.ts
+│   ├── utils.ts                  # cn(), formatters
+│   ├── constants.ts              # Site config, nav structure
+│   ├── seo.ts                    # Metadata helpers
+│   └── analytics.ts
+├── content/                      # MDX for static content (optional)
+├── public/
+│   ├── assets/
+│   ├── fonts/                    # Self-hosted fonts if needed
+│   └── favicon suite
+├── styles/
+│   └── tokens.css                # Design token CSS variables
+├── types/
+│   └── global.d.ts
+├── .env.local.example
+├── next.config.ts
+├── tailwind.config.ts
+├── tsconfig.json
+└── VizionScop3_Website_PRD.md    # REFERENCE ALWAYS
+```
+
+---
+
+## COMPONENT DEVELOPMENT RULES
+
+### Naming Conventions
+
+- Components: `PascalCase` (e.g., `ServiceCard.tsx`)
+- Utilities: `camelCase` (e.g., `formatDate.ts`)
+- Types/Interfaces: `PascalCase` with `T` prefix for types or `I` prefix for interfaces **ONLY** if the project grows complex — default to no prefix
+- Constants: `SCREAMING_SNAKE_CASE`
+- CSS custom properties: `--kebab-case`
+- File names match export name exactly
+
+### Component Structure (mandatory template)
+
+```tsx
+// components/cards/ServiceCard.tsx
+import { cn } from '@/lib/utils'
+import type { ComponentProps } from 'react'
+
+interface ServiceCardProps extends ComponentProps<'article'> {
+  title: string
+  description: string
+  icon: React.ReactNode
+  href: string
+}
+
+export function ServiceCard({
+  title,
+  description,
+  icon,
+  href,
+  className,
+  ...props
+}: ServiceCardProps) {
+  return (
+    <article
+      className={cn(
+        'group relative rounded-lg bg-midnight p-8',
+        'transition-all duration-[--duration-normal]',
+        'hover:shadow-[--shadow-glow-cyan]',
+        className
+      )}
+      {...props}
+    >
+      {/* content */}
+    </article>
+  )
+}
+```
+
+**Rules enforced in every component:**
+1. Prop interface declared above component
+2. Extend native HTML element props when appropriate
+3. Always accept and merge `className` via `cn()`
+4. Use CSS variables, not hardcoded values
+5. No inline styles unless dynamic and unavoidable
+6. Server Components by default — only use `'use client'` when necessary (interactivity, hooks, browser APIs)
+
+### Component Categories
+
+Build in this priority order:
+
+1. **Primitives** — Button, Link, Badge, Tag, Icon, Input, Textarea
+2. **Layout** — Container, Grid, Stack, Section, Divider
+3. **Navigation** — Header, MobileNav, Footer, Breadcrumbs
+4. **Content** — Heading, Prose, Quote, CodeBlock, Metric
+5. **Cards** — ServiceCard, ProjectCard, ArticleCard, TestimonialCard, IndustryCard
+6. **Forms** — FormField, ContactForm, NewsletterForm
+7. **Motion** — FadeIn, SlideIn, Stagger, ScrollReveal, Parallax
+8. **Sections** — Hero, FeatureGrid, CTABlock, LogoWall, StatsStrip, FeaturedWork
+9. **Templates** — Page layouts, case study template, service template
+
+---
+
+## CODING STANDARDS
+
+### TypeScript
+
+- **Strict mode always on** — no `any`, no `@ts-ignore` without a comment explaining why
+- Prefer `type` for unions and primitives, `interface` for object shapes that may extend
+- Use `satisfies` over type assertions when possible
+- Export types separately from implementations when used across boundaries
+- Generics are preferred over `unknown` for reusable utilities
+
+### React / Next.js
+
+- **Server Components by default** — only reach for `'use client'` when you need state, effects, refs, browser APIs, or event handlers
+- Colocate `'use client'` boundaries as deep as possible — keep parent trees on the server
+- Use `Suspense` with meaningful fallbacks, never blank loading states
+- Prefer `next/image` for all images with explicit width/height to prevent CLS
+- Prefer `next/link` for all internal navigation
+- Use `next/font` for all typography — never `<link>` tags
+- Metadata API for SEO — never manual `<head>` manipulation
+- Route handlers in `app/api/` use the standard Web Request/Response API
+
+### Tailwind
+
+- Use design tokens through `tailwind.config.ts` — don't use arbitrary values like `bg-[#0A0A0F]`
+- Compose with `cn()` utility (from `clsx` + `tailwind-merge`)
+- Order classes: layout → spacing → sizing → typography → color → effects → state
+- Extract repeated utility strings into components, never into `@apply` in global CSS
+- Mobile-first: unprefixed classes are mobile, prefixes go up (`md:`, `lg:`, `xl:`)
+
+### State Management
+
+- URL state via `searchParams` first (filtering, tabs, pagination)
+- React state (`useState`, `useReducer`) for component-local state
+- Server Actions for mutations — no separate API layer unless required
+- **No global state library** unless a genuine need emerges (Zustand if forced)
+
+### Error Handling
+
+- Every `app/` route segment needs `error.tsx` and `not-found.tsx`
+- Every API route wraps logic in try/catch with structured error responses
+- Never swallow errors silently — at minimum log to Sentry
+- User-facing errors must be actionable, never raw stack traces
+
+---
+
+## PERFORMANCE BUDGETS
+
+Enforce these in CI via Lighthouse CI:
+
+| Metric | Budget | Failure Mode |
+|---|---|---|
+| Performance score | ≥ 95 | Block PR |
+| Accessibility score | = 100 | Block PR |
+| Best Practices score | = 100 | Block PR |
+| SEO score | = 100 | Block PR |
+| LCP | < 2.0s | Block PR |
+| TTI | < 2.5s | Block PR |
+| CLS | < 0.05 | Block PR |
+| Total JS bundle | < 200KB gzipped | Warn |
+| Total CSS bundle | < 40KB gzipped | Warn |
+
+**Optimization priorities:**
+1. Server Components first — ship JS only when interactive
+2. Route-level code splitting is automatic — don't fight it
+3. Lazy load below-the-fold images and components (`next/dynamic` where needed)
+4. Preload only critical fonts (2 weights maximum on first paint)
+5. Self-host fonts via `next/font` — never external CDNs at runtime
+
+---
+
+## ACCESSIBILITY REQUIREMENTS
+
+### Every interactive element must have:
+
+- A visible focus indicator (custom, not browser default — use `focus-visible`)
+- Appropriate ARIA labels when the visual label is insufficient
+- Minimum 44×44px touch target on mobile
+- Keyboard operability (Tab, Shift+Tab, Enter, Space, Escape)
+- Proper semantic HTML (`<button>` for actions, `<a>` for navigation — never swap)
+
+### Color & contrast
+
+- Text contrast ≥ 4.5:1 against background
+- UI component contrast ≥ 3:1
+- Never rely on color alone to convey meaning (pair with icon, text, or pattern)
+
+### Motion
+
+- Every Framer Motion component checks `prefers-reduced-motion`
+- Provide a motion-disabled alternative that still communicates information
+- Never auto-play video with sound
+- Avoid parallax or large movement on scroll for users who opted out
+
+### Forms
+
+- Every input has an associated `<label>` (no placeholder-only labels)
+- Error messages linked via `aria-describedby`
+- Required fields marked programmatically (`aria-required` + visual indicator)
+- Submission states announced to screen readers (`aria-live`)
+
+### Testing
+
+- Run `@axe-core/react` in development
+- Manual keyboard-only navigation test before any PR
+- Test with VoiceOver (macOS/iOS) and NVDA (Windows) on critical flows
+
+---
+
+## SEO REQUIREMENTS
+
+### Every page must have:
+
+- Unique `<title>` (50-60 chars) via `generateMetadata`
+- Unique meta description (150-160 chars)
+- OpenGraph tags (title, description, image, type, url)
+- Twitter Card tags
+- Canonical URL
+- Appropriate `<h1>` — exactly one per page
+- Semantic heading hierarchy (no skipping levels)
+
+### Structured data (JSON-LD)
+
+Implement on relevant pages:
+
+- **All pages:** `Organization` schema
+- **Service pages:** `Service` schema
+- **Case studies:** `CreativeWork` + `Review` schema
+- **Blog posts:** `Article` schema with author
+- **Contact page:** `LocalBusiness` schema
+- **Homepage:** `WebSite` + `Organization` + search action
+
+### Sitemap & robots
+
+- Dynamic `sitemap.ts` pulling from Sanity + static routes
+- `robots.ts` with environment-aware rules (block crawlers on staging)
+- Priority and changefreq values reflect actual update cadence
+
+---
+
+## CONTENT & COPYWRITING RULES
+
+When generating or editing copy:
+
+1. **Active voice, present tense** — "We build" not "Solutions are built"
+2. **Under 25 words per sentence** when possible
+3. **Concrete over vague** — "14-day MVP turnaround" beats "rapid delivery"
+4. **No buzzword stacks** — reject "synergistic AI-powered blockchain-enabled solutions"
+5. **Technical accuracy is non-negotiable** — never invent metrics, case study outcomes, client names, or capabilities
+6. **Audience calibration** — nonprofit language ≠ enterprise language, even for the same service
+7. **Confident but not arrogant** — "We've shipped 200+ projects" not "We're the best"
+8. **Sentence case for headings** — "Engineering the future" not "Engineering The Future"
+
+### Banned phrases
+- "Revolutionary" (show it, don't claim it)
+- "Best-in-class"
+- "Synergy" / "synergistic"
+- "Cutting-edge"
+- "Unlocking value"
+- "Transformative journey"
+- "World-class" (unless backed by specific proof)
+
+---
+
+## SECURITY RULES
+
+- No API keys, secrets, or tokens in client-side code — ever
+- All secrets in environment variables, validated via Zod on startup
+- `.env.local.example` committed with placeholder values, `.env.local` gitignored
+- Rate limit all public API routes (contact form, newsletter)
+- Bot protection on forms (Cloudflare Turnstile preferred)
+- Sanitize all user input before storage or display
+- CSP headers configured in `next.config.ts`
+- HSTS enabled in production
+- Dependency audits run weekly (`npm audit`)
+
+---
+
+## GIT & WORKFLOW
+
+### Branch naming
+
+```
+feat/hero-section
+fix/contact-form-validation
+chore/dependency-upgrades
+docs/prd-updates
+perf/homepage-lcp
+```
+
+### Commit messages (Conventional Commits)
+
+```
+feat(homepage): add animated hero with particle background
+fix(forms): validate email format before submission
+perf(images): convert heroes to AVIF with WebP fallback
+a11y(nav): add skip-to-content link and focus management
+docs(readme): update local setup instructions
+```
+
+### Pull Request checklist
+
+Every PR must confirm:
+- [ ] Lighthouse scores still meet budgets
+- [ ] Keyboard navigation tested
+- [ ] Mobile viewport tested (375px minimum)
+- [ ] TypeScript compiles with zero errors
+- [ ] ESLint passes with zero warnings
+- [ ] No new console errors or warnings
+- [ ] Screenshots attached for visual changes
+
+---
+
+## AI ASSISTANCE RULES (for Cursor)
+
+When I ask you to build something:
+
+1. **Read the PRD section relevant to the request first** — don't guess at requirements
+2. **Check for existing components before creating new ones** — avoid duplication
+3. **Ask before adding dependencies** — propose the tradeoff, let me approve
+4. **Build mobile-first** — every time, no exceptions
+5. **Ship complete work** — a component includes its types, its styles, its accessibility, and any necessary tests
+6. **Explain non-obvious decisions** — if you choose Framer Motion over CSS animation, tell me why
+7. **Flag scope drift** — if a request would change design tokens or architecture, stop and confirm
+8. **Prefer composition over configuration** — small focused components over giant configurable ones
+9. **When uncertain about brand voice, match the PRD examples** — don't invent tone
+10. **Never fabricate content** — use `[PLACEHOLDER: client name]` style markers when real content is needed
+
+### When generating case study or portfolio content:
+
+- **Never invent client names, metrics, or project outcomes**
+- Use placeholders: `[Client Name]`, `[Metric: e.g., 40% conversion lift]`
+- Flag that content needs real-world data from Vizion before publishing
+
+---
+
+## SIGNATURE DETAILS (the things that make this site unmistakable)
+
+These are the details that separate VizionScop3 from a template site. Invest extra polish here:
+
+1. **Hero kinetic moment** — One hero-level animation that makes visitors pause (shader background, generative mesh, scroll-triggered sequence)
+2. **Cursor interactions** — Subtle custom cursor behavior on desktop (magnetic buttons, hover halos on cards)
+3. **Case study storytelling** — Each case study reads like an editorial piece, not a data dump
+4. **Metric reveals** — Numbers count up on scroll into view, monospace typography, slight glow
+5. **Section transitions** — Thoughtful reveals as sections enter viewport, never all-at-once
+6. **Loading states** — Skeletons that match final layout exactly, branded shimmer using accent colors
+7. **Empty states** — If filters return zero results, show a branded, helpful empty state (not a blank div)
+8. **404 page** — Fully branded, playful without being unprofessional, routes user back to value
+9. **Form success states** — Post-submit experience feels celebratory, sets clear next-step expectation
+10. **Microcopy** — Every button, label, and error message feels intentional — never generic "Submit" or "Error occurred"
+
+---
+
+## FINAL REMINDER
+
+The site must answer three questions within 10 seconds of arrival:
+
+1. **What does VizionScop3 do?** (AI-native technology solutions)
+2. **Who is it for?** (Nonprofits → Enterprise)
+3. **Why should I trust them?** (Proof of work, founder credentials, client outcomes)
+
+If any page, section, or component obscures these answers, it's wrong — no matter how beautiful.
+
+---
+
+**Reference hierarchy for conflicts:**
+1. VizionScop3_Website_PRD.md (PRD)
+2. This .cursorrules file
+3. Industry best practices
+4. Cursor's own suggestions
+
+When in doubt, ask before building.

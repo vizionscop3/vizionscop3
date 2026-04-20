@@ -1,0 +1,9 @@
+export { Hero } from "./hero";
+export { ValueProposition } from "./value-proposition";
+export { ServicesOverview } from "./services-overview";
+export { FeaturedWork } from "./featured-work";
+export { WhoWeServe } from "./who-we-serve";
+export { Methodology } from "./methodology";
+export { SocialProof } from "./social-proof";
+export { InsightsPreview } from "./insights-preview";
+export { CTASection } from "./cta-section";
