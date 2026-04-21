@@ -10,7 +10,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
+import { Turnstile } from "@marsidev/react-turnstile";
 import { cn } from "@/lib/utils";
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -21,6 +24,7 @@ const contactSchema = z.object({
   budgetRange: z.string().optional(),
   timeline: z.string().optional(),
   description: z.string().min(20, "Please provide more details about your project"),
+  turnstileToken: z.string().optional(),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -65,6 +69,8 @@ const timelines = [
 export function ContactForm() {
   const [status, setStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
   const [selectedProjectTypes, setSelectedProjectTypes] = React.useState<string[]>([]);
+  const [turnstileToken, setTurnstileToken] = React.useState<string | null>(null);
+  const [turnstileKey, setTurnstileKey] = React.useState(0);
 
   const {
     register,
@@ -88,13 +94,21 @@ export function ContactForm() {
   };
 
   const onSubmit = async (data: ContactFormData) => {
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setStatus("error");
+      return;
+    }
+
     setStatus("loading");
 
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          turnstileToken: turnstileToken ?? undefined,
+        }),
       });
 
       if (!response.ok) throw new Error("Failed to send message");
@@ -102,13 +116,19 @@ export function ContactForm() {
       setStatus("success");
       reset();
       setSelectedProjectTypes([]);
+      setTurnstileToken(null);
+      setTurnstileKey((k) => k + 1);
     } catch {
       setStatus("error");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="space-y-6"
+      aria-describedby="contact-form-status"
+    >
       <AnimatePresence mode="wait">
         {status === "success" ? (
           <motion.div
@@ -242,11 +262,34 @@ export function ContactForm() {
               />
             </FormField>
 
+            {TURNSTILE_SITE_KEY && (
+              <div className="flex justify-center">
+                <Turnstile
+                  key={turnstileKey}
+                  siteKey={TURNSTILE_SITE_KEY}
+                  onSuccess={(token) => setTurnstileToken(token)}
+                />
+              </div>
+            )}
+
+            <div id="contact-form-status" className="sr-only" aria-live="polite">
+              {status === "loading" && "Sending message."}
+              {status === "success" && "Message sent successfully."}
+              {status === "error" && "Error sending message."}
+            </div>
+
             {/* Error message */}
             {status === "error" && (
-              <div className="flex items-center gap-2 rounded-[var(--radius-md)] border border-red-500/50 bg-red-500/10 p-4 text-red-400">
+              <div
+                role="alert"
+                className="flex items-center gap-2 rounded-[var(--radius-md)] border border-red-500/50 bg-red-500/10 p-4 text-red-400"
+              >
                 <AlertCircle className="h-5 w-5 shrink-0" />
-                <p>Something went wrong. Please try again or email us directly.</p>
+                <p>
+                  {TURNSTILE_SITE_KEY && !turnstileToken
+                    ? "Please complete the verification above."
+                    : "Something went wrong. Please try again or email us directly."}
+                </p>
               </div>
             )}
 

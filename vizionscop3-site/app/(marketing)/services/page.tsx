@@ -158,19 +158,19 @@ export default function ServicesPage() {
       </Section>
 
       {/* Services Grid */}
-      <Section spacing="lg">
+      <Section spacing="xl">
         <Container>
-          <Stagger className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <Stagger className="mx-auto grid max-w-6xl gap-8 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
               <StaggerItem key={service.slug}>
                 <Link
                   href={`/services/${service.slug}`}
                   className="group block h-full"
                 >
-                  <div className="relative h-full overflow-hidden rounded-[var(--radius-xl)] border border-[var(--color-void-gray)]/50 bg-[var(--color-deep-space)] p-6 transition-all duration-[var(--duration-normal)] hover:border-[var(--color-void-gray)] hover:bg-[var(--color-midnight)]">
+                  <div className="relative flex h-full flex-col overflow-hidden rounded-[var(--radius-xl)] border border-[var(--color-void-gray)]/30 bg-[var(--color-deep-space)] p-8 transition-all duration-[var(--duration-normal)] hover:border-[var(--color-void-gray)] hover:bg-[var(--color-midnight)]">
                     {/* Icon */}
                     <div
-                      className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-[var(--radius-lg)] transition-transform duration-[var(--duration-normal)] group-hover:scale-110"
+                      className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-[var(--radius-lg)] transition-transform duration-[var(--duration-normal)] group-hover:scale-110"
                       style={{
                         backgroundColor: `color-mix(in srgb, ${service.color} 20%, transparent)`,
                       }}
@@ -191,19 +191,19 @@ export default function ServicesPage() {
                     >
                       {service.tagline}
                     </p>
-                    <p className="mb-4 text-sm text-[var(--color-echo-gray)]">
+                    <p className="mb-6 text-[var(--color-echo-gray)] leading-relaxed">
                       {service.description}
                     </p>
 
                     {/* Features */}
-                    <ul className="mb-6 space-y-2">
+                    <ul className="mb-6 flex-1 space-y-2">
                       {service.features.map((feature, idx) => (
                         <li
                           key={idx}
                           className="flex items-center text-sm text-[var(--color-echo-gray)]"
                         >
                           <span
-                            className="mr-2 h-1.5 w-1.5 rounded-full"
+                            className="mr-3 h-1.5 w-1.5 shrink-0 rounded-full"
                             style={{ backgroundColor: service.color }}
                           />
                           {feature}
@@ -225,13 +225,13 @@ export default function ServicesPage() {
       </Section>
 
       {/* CTA */}
-      <Section spacing="lg">
+      <Section spacing="xl">
         <Container>
           <FadeIn className="mx-auto max-w-3xl text-center">
             <Heading as="h2" size="lg" className="mb-6">
               Not sure which service you need?
             </Heading>
-            <p className="mb-8 text-lg text-[var(--color-echo-gray)]">
+            <p className="mb-10 text-lg text-[var(--color-echo-gray)] leading-relaxed">
               Schedule a free consultation and we&apos;ll help you identify the right
               solution for your business goals.
             </p>

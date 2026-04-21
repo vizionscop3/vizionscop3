@@ -27,7 +27,7 @@ const featuredProjects = [
     isConfidential: true,
     industry: "Corporate",
     services: ["Mobile Applications", "AI Infrastructure"],
-    heroImage: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=500&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1576091160399?w=800&h=500&fit=crop",
     summary: "AI-powered appointment scheduling reducing no-shows by 60% and improving patient satisfaction.",
   },
   {
@@ -51,12 +51,10 @@ const featuredProjects = [
 ];
 
 export function FeaturedWork() {
-  const scrollRef = React.useRef<HTMLDivElement>(null);
-
   return (
-    <Section className="bg-[var(--color-deep-space)]">
+    <Section spacing="xl" className="bg-[var(--color-deep-space)]">
       <Container>
-        <FadeIn className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+        <FadeIn className="mb-16 flex flex-col items-center justify-between gap-6 text-center md:flex-row md:items-end md:text-left">
           <div>
             <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-[var(--color-electric-cyan)]">
               Our Work
@@ -72,22 +70,14 @@ export function FeaturedWork() {
             </Link>
           </Button>
         </FadeIn>
-      </Container>
 
-      <div className="relative">
-        <div
-          ref={scrollRef}
-          className="scrollbar-hide flex gap-6 overflow-x-auto px-4 pb-4 md:px-8"
-          style={{ scrollSnapType: "x mandatory" }}
-        >
-          <div className="shrink-0 md:w-[calc((100vw-80rem)/2)]" />
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {featuredProjects.map((project, index) => (
             <motion.div
               key={project.slug}
-              className="w-[85vw] shrink-0 md:w-[400px]"
-              style={{ scrollSnapAlign: "start" }}
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              className="h-full"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{
                 duration: 0.5,
@@ -98,9 +88,8 @@ export function FeaturedWork() {
               <ProjectCard {...project} />
             </motion.div>
           ))}
-          <div className="shrink-0 w-4 md:w-[calc((100vw-80rem)/2)]" />
         </div>
-      </div>
+      </Container>
     </Section>
   );
 }

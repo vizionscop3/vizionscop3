@@ -36,9 +36,29 @@ const contactInfo = [
   },
 ];
 
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: siteConfig.name,
+  url: siteConfig.url,
+  email: siteConfig.links.email,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: siteConfig.location.city,
+    addressRegion: siteConfig.location.state,
+    addressCountry: siteConfig.location.country,
+  },
+};
+
 export default function ContactPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessJsonLd),
+        }}
+      />
       {/* Hero */}
       <Section spacing="lg" className="pt-32">
         <Container>

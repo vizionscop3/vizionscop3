@@ -8,9 +8,14 @@ import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FadeIn } from "@/components/motion/fade-in";
+import Image from "next/image";
+import { PortableText } from "@portabletext/react";
 import { formatDate } from "@/lib/utils";
 import { generateArticleMetadata } from "@/lib/seo";
-// import { getArticleBySlug, getArticleSlugs } from "@/lib/sanity";
+import { getArticleBySlug, getArticleSlugs } from "@/lib/sanity/fetch";
+import { isSanityConfigured } from "@/lib/sanity/is-configured";
+import type { SanityArticle } from "@/lib/sanity/types";
+import { articleHeroUrl } from "@/lib/sanity/article-helpers";
 
 // Placeholder articles until Sanity CMS is configured
 const placeholderArticles: Record<string, {
@@ -124,10 +129,17 @@ Production RAG is an engineering challenge, not just an AI challenge. The differ
 };
 
 export async function generateStaticParams() {
-  // TODO: Fetch from Sanity when configured
-  // const slugs = await getArticleSlugs();
-  // return slugs.map((slug) => ({ slug }));
-  return Object.keys(placeholderArticles).map((slug) => ({ slug }));
+  const local = Object.keys(placeholderArticles);
+  if (!isSanityConfigured()) {
+    return local.map((slug) => ({ slug }));
+  }
+  try {
+    const remote = await getArticleSlugs();
+    const merged = [...new Set([...local, ...remote])];
+    return merged.map((slug) => ({ slug }));
+  } catch {
+    return local.map((slug) => ({ slug }));
+  }
 }
 
 export async function generateMetadata({
@@ -136,10 +148,23 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  if (isSanityConfigured()) {
+    try {
+      const remote = await getArticleBySlug(slug);
+      if (remote) {
+        return generateArticleMetadata({
+          title: remote.title,
+          description: remote.excerpt,
+          path: `/insights/${slug}`,
+          publishedTime: remote.publishedAt,
+        });
+      }
+    } catch {
+      /* fall through */
+    }
+  }
   const article = placeholderArticles[slug];
-
   if (!article) return {};
-
   return generateArticleMetadata({
     title: article.title,
     description: article.excerpt,
@@ -154,12 +179,27 @@ export default async function ArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  
-  // TODO: Fetch from Sanity when configured
-  // const article = await getArticleBySlug(slug);
+
+  let sanityArticle: SanityArticle | null = null;
+  if (isSanityConfigured()) {
+    try {
+      sanityArticle = await getArticleBySlug(slug);
+    } catch {
+      sanityArticle = null;
+    }
+  }
   const article = placeholderArticles[slug];
 
-  if (!article) notFound();
+  if (!sanityArticle && !article) notFound();
+
+  const title = sanityArticle?.title ?? article!.title;
+  const category = sanityArticle?.category ?? article!.category;
+  const publishedAt = sanityArticle?.publishedAt ?? article!.publishedAt;
+  const readTime = sanityArticle?.readTime ?? article!.readTime;
+  const authorName =
+    sanityArticle?.author?.name ?? article!.author.name;
+  const authorRole =
+    sanityArticle?.author?.role ?? article!.author.role;
 
   return (
     <>
@@ -176,11 +216,11 @@ export default async function ArticlePage({
             </Link>
 
             <Badge variant="primary" className="mb-4">
-              {article.category}
+              {category}
             </Badge>
 
             <Heading as="h1" size="xl" className="mb-6">
-              {article.title}
+              {title}
             </Heading>
 
             <div className="flex flex-wrap items-center gap-4 text-sm text-[var(--color-echo-gray)]">
@@ -188,20 +228,20 @@ export default async function ArticlePage({
                 <div className="h-10 w-10 rounded-full bg-gradient-to-br from-[var(--color-electric-cyan)] to-[var(--color-plasma-violet)]" />
                 <div>
                   <p className="font-medium text-[var(--color-signal-white)]">
-                    {article.author.name}
+                    {authorName}
                   </p>
-                  <p className="text-xs">{article.author.role}</p>
+                  <p className="text-xs">{authorRole}</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-1">
                 <Calendar className="h-4 w-4" />
-                {formatDate(article.publishedAt)}
+                {formatDate(publishedAt)}
               </div>
 
               <div className="flex items-center gap-1">
                 <Clock className="h-4 w-4" />
-                {article.readTime} min read
+                {readTime} min read
               </div>
             </div>
           </FadeIn>
@@ -212,12 +252,22 @@ export default async function ArticlePage({
       <Section spacing="sm">
         <Container>
           <FadeIn className="mx-auto max-w-4xl">
-            <div className="aspect-video overflow-hidden rounded-[var(--radius-xl)] border border-[var(--color-void-gray)]/50 bg-[var(--color-deep-space)]">
-              <div className="flex h-full items-center justify-center">
-                <p className="text-[var(--color-echo-gray)]">
-                  [Article Hero Image]
-                </p>
-              </div>
+            <div className="relative aspect-video overflow-hidden rounded-[var(--radius-xl)] border border-[var(--color-void-gray)]/50 bg-[var(--color-deep-space)]">
+              {sanityArticle?.heroImage?.asset ? (
+                <Image
+                  src={articleHeroUrl(sanityArticle)}
+                  alt={title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 896px) 100vw, 896px"
+                />
+              ) : (
+                <div className="flex h-full items-center justify-center">
+                  <p className="text-[var(--color-echo-gray)]">
+                    [Article Hero Image]
+                  </p>
+                </div>
+              )}
             </div>
           </FadeIn>
         </Container>
@@ -228,34 +278,37 @@ export default async function ArticlePage({
         <Container>
           <FadeIn className="mx-auto max-w-3xl">
             <div className="prose prose-invert prose-lg max-w-none prose-headings:font-[var(--font-display)] prose-headings:text-[var(--color-signal-white)] prose-p:text-[var(--color-echo-gray)] prose-strong:text-[var(--color-signal-white)] prose-a:text-[var(--color-electric-cyan)] prose-code:text-[var(--color-electric-cyan)]">
-              {/* In production, use PortableText component from Sanity */}
-              {article.content.split("\n").map((paragraph, idx) => {
-                if (paragraph.startsWith("## ")) {
-                  return (
-                    <h2 key={idx} className="mt-12 mb-4">
-                      {paragraph.replace("## ", "")}
-                    </h2>
-                  );
-                }
-                if (paragraph.startsWith("### ")) {
-                  return (
-                    <h3 key={idx} className="mt-8 mb-3">
-                      {paragraph.replace("### ", "")}
-                    </h3>
-                  );
-                }
-                if (paragraph.startsWith("1. ") || paragraph.startsWith("- ")) {
-                  return (
-                    <p key={idx} className="my-2 pl-4">
-                      {paragraph}
-                    </p>
-                  );
-                }
-                if (paragraph.trim()) {
-                  return <p key={idx}>{paragraph}</p>;
-                }
-                return null;
-              })}
+              {sanityArticle ? (
+                <PortableText value={sanityArticle.body} />
+              ) : (
+                article!.content.split("\n").map((paragraph, idx) => {
+                  if (paragraph.startsWith("## ")) {
+                    return (
+                      <h2 key={idx} className="mt-12 mb-4">
+                        {paragraph.replace("## ", "")}
+                      </h2>
+                    );
+                  }
+                  if (paragraph.startsWith("### ")) {
+                    return (
+                      <h3 key={idx} className="mt-8 mb-3">
+                        {paragraph.replace("### ", "")}
+                      </h3>
+                    );
+                  }
+                  if (paragraph.startsWith("1. ") || paragraph.startsWith("- ")) {
+                    return (
+                      <p key={idx} className="my-2 pl-4">
+                        {paragraph}
+                      </p>
+                    );
+                  }
+                  if (paragraph.trim()) {
+                    return <p key={idx}>{paragraph}</p>;
+                  }
+                  return null;
+                })
+              )}
             </div>
           </FadeIn>
         </Container>

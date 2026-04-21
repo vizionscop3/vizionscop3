@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
@@ -8,7 +7,12 @@ import { ArticleCard } from "@/components/cards/article-card";
 import { FadeIn } from "@/components/motion/fade-in";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { generatePageMetadata } from "@/lib/seo";
-// import { getArticles } from "@/lib/sanity";
+import { getArticles } from "@/lib/sanity/fetch";
+import { isSanityConfigured } from "@/lib/sanity/is-configured";
+import {
+  articleHeroUrl,
+  DEFAULT_ARTICLE_IMAGE,
+} from "@/lib/sanity/article-helpers";
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Insights",
@@ -96,9 +100,30 @@ const placeholderArticles = [
 const categories = ["All", "Engineering", "AI", "Industry", "Case Studies"];
 
 export default async function InsightsPage() {
-  // TODO: Fetch from Sanity when configured
-  // const articles = await getArticles();
-  const articles = placeholderArticles;
+  let articles = placeholderArticles;
+  if (isSanityConfigured()) {
+    try {
+      const remote = await getArticles();
+      if (remote.length > 0) {
+        articles = remote.map((a) => ({
+          _id: a._id,
+          title: a.title,
+          slug: a.slug,
+          excerpt: a.excerpt,
+          heroImage: articleHeroUrl(a),
+          category: a.category,
+          publishedAt: a.publishedAt,
+          readTime: a.readTime ?? 5,
+          author: {
+            name: a.author?.name ?? "VizionScop3",
+            slug: a.author?.slug ?? { current: "vizion" },
+          },
+        }));
+      }
+    } catch {
+      /* keep placeholder */
+    }
+  }
 
   return (
     <>
@@ -152,7 +177,11 @@ export default async function InsightsPage() {
                   title={article.title}
                   slug={article.slug.current}
                   excerpt={article.excerpt}
-                  heroImage=""
+                  heroImage={
+                    typeof article.heroImage === "string"
+                      ? article.heroImage
+                      : DEFAULT_ARTICLE_IMAGE
+                  }
                   category={article.category}
                   publishedAt={article.publishedAt}
                   readTime={article.readTime}

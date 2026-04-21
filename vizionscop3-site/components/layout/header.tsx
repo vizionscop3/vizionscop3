@@ -25,10 +25,6 @@ export function Header() {
   }, []);
 
   React.useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
-
-  React.useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
     } else {
@@ -109,6 +105,7 @@ export function Header() {
                   >
                     <Link
                       href={link.href}
+                      onClick={() => setIsOpen(false)}
                       className={cn(
                         "block py-3 text-lg font-medium transition-colors",
                         pathname === link.href
@@ -127,7 +124,9 @@ export function Header() {
                   className="pt-4"
                 >
                   <Button variant="primary" size="lg" className="w-full" asChild>
-                    <Link href="/contact">Start a Project</Link>
+                    <Link href="/contact" onClick={() => setIsOpen(false)}>
+                      Start a Project
+                    </Link>
                   </Button>
                 </motion.div>
               </div>

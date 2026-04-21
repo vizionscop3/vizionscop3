@@ -2,11 +2,12 @@ import { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/constants";
 import { servicesData } from "@/lib/services-data";
 import { industriesData } from "@/lib/industries-data";
+import { getArticleSlugs } from "@/lib/sanity/fetch";
+import { isSanityConfigured } from "@/lib/sanity/is-configured";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteConfig.url;
 
-  // Static pages
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: baseUrl,
@@ -46,7 +47,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Service pages
   const servicePages: MetadataRoute.Sitemap = Object.keys(servicesData).map(
     (slug) => ({
       url: `${baseUrl}/services/${slug}`,
@@ -56,7 +56,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  // Industry pages
   const industryPages: MetadataRoute.Sitemap = Object.keys(industriesData).map(
     (slug) => ({
       url: `${baseUrl}/industries/${slug}`,
@@ -66,9 +65,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  // TODO: Add dynamic pages from Sanity CMS
-  // const projects = await getProjects()
-  // const articles = await getArticles()
+  let sanityArticles: MetadataRoute.Sitemap = [];
+  if (isSanityConfigured()) {
+    try {
+      const slugs = await getArticleSlugs();
+      sanityArticles = slugs.map((slug) => ({
+        url: `${baseUrl}/insights/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.75,
+      }));
+    } catch {
+      sanityArticles = [];
+    }
+  }
 
-  return [...staticPages, ...servicePages, ...industryPages];
+  return [
+    ...staticPages,
+    ...servicePages,
+    ...industryPages,
+    ...sanityArticles,
+  ];
 }

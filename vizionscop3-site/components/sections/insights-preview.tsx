@@ -46,11 +46,11 @@ const latestArticles = [
 
 export function InsightsPreview() {
   return (
-    <Section className="bg-[var(--color-deep-space)]">
+    <Section spacing="xl" className="bg-[var(--color-deep-space)]">
       <Container>
-        <FadeIn className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+        <FadeIn className="mb-16 flex flex-col items-center justify-between gap-6 text-center md:flex-row md:items-end md:text-left">
           <div>
-            <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-[var(--color-electric-cyan)]">
+            <span className="mb-4 inline-block text-sm font-medium uppercase tracking-wider text-[var(--color-circuit-green)]">
               Insights
             </span>
             <Heading as="h2" size="xl">
@@ -65,9 +65,9 @@ export function InsightsPreview() {
           </Button>
         </FadeIn>
 
-        <Stagger className="grid gap-6 md:grid-cols-3">
+        <Stagger className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {latestArticles.map((article) => (
-            <StaggerItem key={article.slug}>
+            <StaggerItem key={article.slug} className="h-full">
               <ArticleCard {...article} />
             </StaggerItem>
           ))}

@@ -36,32 +36,32 @@ export function IndustryCard({
   const Icon = iconMap[slug] || Building2;
 
   return (
-    <Link href={`/industries/${slug}`} className={cn("group block", className)}>
+    <Link href={`/industries/${slug}`} className={cn("group block h-full", className)}>
       <motion.article
-        className="relative flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-void-gray)]/50 bg-[var(--color-deep-space)] p-6 transition-all duration-[var(--duration-normal)]"
+        className="relative flex h-full min-h-[240px] flex-col rounded-[var(--radius-xl)] border border-[var(--color-void-gray)]/30 bg-[var(--color-deep-space)] p-6 transition-all duration-[var(--duration-normal)]"
         whileHover={{
           borderColor: "var(--color-plasma-violet)",
           boxShadow: "0 0 24px rgba(124, 58, 237, 0.15)",
         }}
       >
-        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-[var(--radius-md)] bg-gradient-to-br from-[var(--color-plasma-violet)]/20 to-transparent">
-          <Icon className="h-7 w-7 text-[var(--color-plasma-violet)]" />
+        <div className="mb-5 flex h-12 w-12 shrink-0 items-center justify-center rounded-[var(--radius-lg)] bg-gradient-to-br from-[var(--color-plasma-violet)]/20 to-transparent">
+          <Icon className="h-6 w-6 text-[var(--color-plasma-violet)]" />
         </div>
 
-        <h3 className="mb-2 font-[var(--font-display)] text-xl font-semibold text-[var(--color-signal-white)]">
+        <h3 className="mb-3 font-[var(--font-display)] text-lg font-semibold text-[var(--color-signal-white)]">
           {title}
         </h3>
 
-        <p className="mb-4 flex-1 text-sm text-[var(--color-echo-gray)]">
+        <p className="mb-4 flex-1 text-base text-[var(--color-echo-gray)] leading-relaxed">
           {description}
         </p>
 
-        <div className="flex items-center gap-2 text-sm font-medium text-[var(--color-plasma-violet)]">
-          See how we help
+        <div className="mt-auto flex shrink-0 items-center gap-2 pt-2 text-sm font-medium text-[var(--color-plasma-violet)]">
+          <span>See how we help</span>
           <ArrowRight className="h-4 w-4 transition-transform duration-[var(--duration-fast)] group-hover:translate-x-1" />
         </div>
 
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[var(--color-plasma-violet)]/5 to-transparent opacity-0 transition-opacity duration-[var(--duration-normal)] group-hover:opacity-100" />
+        <div className="pointer-events-none absolute inset-0 rounded-[var(--radius-xl)] bg-gradient-to-br from-[var(--color-plasma-violet)]/5 to-transparent opacity-0 transition-opacity duration-[var(--duration-normal)] group-hover:opacity-100" />
       </motion.article>
     </Link>
   );

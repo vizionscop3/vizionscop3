@@ -9,7 +9,9 @@ export default function MarketingLayout({
   return (
     <>
       <Header />
-      <main id="main-content">{children}</main>
+      <main id="main-content" className="w-full min-w-0">
+        {children}
+      </main>
       <Footer />
     </>
   );

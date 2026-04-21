@@ -1,14 +1,13 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, ExternalLink, CheckCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FadeIn } from "@/components/motion/fade-in";
-import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { generatePageMetadata } from "@/lib/seo";
 // import { getProjectBySlug, getProjectSlugs } from "@/lib/sanity";
 

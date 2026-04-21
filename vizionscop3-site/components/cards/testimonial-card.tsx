@@ -23,19 +23,19 @@ export function TestimonialCard({
   return (
     <article
       className={cn(
-        "relative rounded-[var(--radius-lg)] border border-[var(--color-void-gray)]/50 bg-[var(--color-deep-space)] p-6 md:p-8",
+        "relative flex h-full flex-col rounded-[var(--radius-xl)] border border-[var(--color-void-gray)]/30 bg-[var(--color-deep-space)] p-8",
         className
       )}
     >
-      <Quote className="mb-4 h-8 w-8 text-[var(--color-electric-cyan)]/40" />
+      <Quote className="mb-5 h-8 w-8 shrink-0 text-[var(--color-electric-cyan)]/40" />
 
-      <blockquote className="mb-6 text-lg leading-relaxed text-[var(--color-signal-white)]">
+      <blockquote className="mb-6 flex-1 text-base leading-relaxed text-[var(--color-signal-white)]">
         &ldquo;{quote}&rdquo;
       </blockquote>
 
-      <footer className="flex items-center gap-4">
+      <footer className="mt-auto flex items-center gap-4">
         {image ? (
-          <div className="relative h-12 w-12 overflow-hidden rounded-full">
+          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full">
             <Image
               src={image}
               alt={author}
@@ -45,19 +45,19 @@ export function TestimonialCard({
             />
           </div>
         ) : (
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-midnight)]">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[var(--color-midnight)]">
             <span className="font-[var(--font-display)] text-lg font-semibold text-[var(--color-electric-cyan)]">
               {author.charAt(0)}
             </span>
           </div>
         )}
 
-        <div>
+        <div className="min-w-0">
           <cite className="not-italic">
-            <span className="block font-medium text-[var(--color-signal-white)]">
+            <span className="block truncate font-medium text-[var(--color-signal-white)]">
               {author}
             </span>
-            <span className="text-sm text-[var(--color-echo-gray)]">
+            <span className="block truncate text-sm text-[var(--color-echo-gray)]">
               {role}
               {company && `, ${company}`}
             </span>

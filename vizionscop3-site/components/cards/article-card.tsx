@@ -31,21 +31,21 @@ export function ArticleCard({
   className,
 }: ArticleCardProps) {
   return (
-    <Link href={`/insights/${slug}`} className={cn("group block", className)}>
+    <Link href={`/insights/${slug}`} className={cn("group block h-full", className)}>
       <motion.article
-        className="relative overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-void-gray)]/50 bg-[var(--color-deep-space)]"
+        className="relative flex h-full flex-col overflow-hidden rounded-[var(--radius-xl)] border border-[var(--color-void-gray)]/30 bg-[var(--color-midnight)]"
         whileHover={{ y: -4 }}
         transition={{ duration: 0.3, ease: [0.19, 1, 0.22, 1] }}
       >
-        <div className="relative aspect-[16/9] overflow-hidden">
+        <div className="relative aspect-[16/9] shrink-0 overflow-hidden">
           <Image
             src={heroImage}
             alt={title}
             fill
             className="object-cover transition-transform duration-[var(--duration-slow)] group-hover:scale-105"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            sizes="(max-width: 640px) 100vw, 33vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-deep-space)] via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-midnight)] via-transparent to-transparent" />
 
           <div className="absolute left-4 top-4">
             <Badge variant="secondary">{category}</Badge>
@@ -56,20 +56,20 @@ export function ArticleCard({
           </div>
         </div>
 
-        <div className="p-6">
-          <h3 className="mb-2 font-[var(--font-display)] text-lg font-semibold text-[var(--color-signal-white)] transition-colors group-hover:text-[var(--color-electric-cyan)]">
+        <div className="flex flex-1 flex-col p-6">
+          <h3 className="mb-3 font-[var(--font-display)] text-lg font-semibold leading-tight text-[var(--color-signal-white)] transition-colors group-hover:text-[var(--color-electric-cyan)]">
             {title}
           </h3>
 
-          <p className="mb-4 line-clamp-2 text-sm text-[var(--color-echo-gray)]">
+          <p className="mb-4 line-clamp-2 flex-1 text-base text-[var(--color-echo-gray)] leading-relaxed">
             {excerpt}
           </p>
 
-          <div className="flex items-center gap-4 text-xs text-[var(--color-echo-gray)]">
+          <div className="mt-auto flex items-center gap-4 text-sm text-[var(--color-echo-gray)]">
             <time dateTime={publishedAt}>{formatDate(publishedAt)}</time>
             <span className="flex items-center gap-1">
-              <Clock className="h-3.5 w-3.5" />
-              {readTime} min read
+              <Clock className="h-4 w-4" />
+              {readTime} min
             </span>
           </div>
         </div>

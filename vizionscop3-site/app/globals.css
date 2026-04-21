@@ -91,8 +91,19 @@
   margin: 0;
 }
 
+/* Use 100% (not 100vw) so width matches the layout viewport minus scrollbar; 100vw + overflow-x
+   hidden can clip asymmetrically and make centered content look stuck to one side. */
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {

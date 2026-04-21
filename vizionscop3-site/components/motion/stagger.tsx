@@ -90,7 +90,7 @@ export function StaggerItem({
   };
 
   return (
-    <motion.div className={className} variants={customItemVariants}>
+    <motion.div className={className || "h-full"} variants={customItemVariants}>
       {children}
     </motion.div>
   );

@@ -9,7 +9,12 @@ import { ProjectCard } from "@/components/cards/project-card";
 import { FadeIn } from "@/components/motion/fade-in";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { generatePageMetadata } from "@/lib/seo";
-// import { getProjects } from "@/lib/sanity";
+import { getProjects } from "@/lib/sanity/fetch";
+import { isSanityConfigured } from "@/lib/sanity/is-configured";
+import {
+  DEFAULT_PROJECT_IMAGE,
+  projectHeroUrl,
+} from "@/lib/sanity/project-helpers";
 
 export const metadata: Metadata = generatePageMetadata({
   title: "Our Work",
@@ -28,7 +33,7 @@ const placeholderProjects = [
     clientConfidential: true,
     industry: "Retail",
     services: ["Web Development", "Custom Software"],
-    heroImage: null,
+    heroImage: DEFAULT_PROJECT_IMAGE,
     summary:
       "Complete e-commerce platform rebuild with 340% improvement in mobile conversions and 2-second page load times.",
   },
@@ -40,7 +45,7 @@ const placeholderProjects = [
     clientConfidential: false,
     industry: "Nonprofit",
     services: ["Web Development", "Database Engineering"],
-    heroImage: null,
+    heroImage: DEFAULT_PROJECT_IMAGE,
     summary:
       "Custom donor management platform that increased retention by 45% and reduced administrative overhead by 60%.",
   },
@@ -52,7 +57,7 @@ const placeholderProjects = [
     clientConfidential: true,
     industry: "Healthcare",
     services: ["AI Infrastructure", "Custom Software"],
-    heroImage: null,
+    heroImage: DEFAULT_PROJECT_IMAGE,
     summary:
       "AI-powered clinical decision support system reducing diagnosis time by 40% while maintaining 99.9% accuracy.",
   },
@@ -64,7 +69,7 @@ const placeholderProjects = [
     clientConfidential: false,
     industry: "Finance",
     services: ["Mobile Development", "Custom Software"],
-    heroImage: null,
+    heroImage: DEFAULT_PROJECT_IMAGE,
     summary:
       "Cross-platform mobile banking app with biometric security, achieving 50,000+ downloads in the first quarter.",
   },
@@ -76,7 +81,7 @@ const placeholderProjects = [
     clientConfidential: true,
     industry: "Legal",
     services: ["AI Infrastructure", "Web Development"],
-    heroImage: null,
+    heroImage: DEFAULT_PROJECT_IMAGE,
     summary:
       "RAG-powered contract analysis system that reduced review time by 90% while improving accuracy.",
   },
@@ -88,7 +93,7 @@ const placeholderProjects = [
     clientConfidential: false,
     industry: "Manufacturing",
     services: ["Custom Software", "Database Engineering"],
-    heroImage: null,
+    heroImage: DEFAULT_PROJECT_IMAGE,
     summary:
       "Legacy system modernization connecting 12 disparate systems, eliminating 40% of manual data entry.",
   },
@@ -114,9 +119,27 @@ const services = [
 ];
 
 export default async function WorkPage() {
-  // TODO: Fetch from Sanity when configured
-  // const projects = await getProjects();
-  const projects = placeholderProjects;
+  let projects = placeholderProjects;
+  if (isSanityConfigured()) {
+    try {
+      const remote = await getProjects();
+      if (remote.length > 0) {
+        projects = remote.map((p) => ({
+          _id: p._id,
+          title: p.title,
+          slug: p.slug,
+          client: p.client ?? "",
+          clientConfidential: p.clientConfidential,
+          industry: p.industry,
+          services: p.services,
+          heroImage: projectHeroUrl(p),
+          summary: p.summary,
+        }));
+      }
+    } catch {
+      /* keep placeholder */
+    }
+  }
 
   return (
     <>
@@ -199,7 +222,7 @@ export default async function WorkPage() {
                   isConfidential={project.clientConfidential}
                   industry={project.industry}
                   services={project.services}
-                  heroImage=""
+                  heroImage={project.heroImage}
                   summary={project.summary}
                 />
               </StaggerItem>
