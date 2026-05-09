@@ -1,0 +1,11 @@
+{
+  "name": "vizionscop3-monorepo",
+  "private": true,
+  "workspaces": ["vizionscop3-site"],
+  "scripts": {
+    "build": "npm run build -w vizionscop3-site",
+    "dev": "npm run dev -w vizionscop3-site",
+    "lint": "npm run lint -w vizionscop3-site",
+    "vercel-build": "npm run build -w vizionscop3-site"
+  }
+}
