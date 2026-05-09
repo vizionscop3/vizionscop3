@@ -2,6 +2,11 @@
   "name": "vizionscop3-monorepo",
   "private": true,
   "workspaces": ["vizionscop3-site"],
+  "dependencies": {
+    "next": "^15.1.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
   "scripts": {
     "build": "npm run build -w vizionscop3-site",
     "dev": "npm run dev -w vizionscop3-site",

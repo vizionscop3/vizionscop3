@@ -49,11 +49,6 @@ export default async function ProjectPage({ params }: Props) {
     url,
   });
 
-  const leadPrivacy =
-    project.slug === "t-trac"
-      ? "Health-adjacent data is modeled with privacy as a first constraint — not a late add-on."
-      : project.challenge;
-
   return (
     <>
       <script
@@ -122,7 +117,9 @@ export default async function ProjectPage({ params }: Props) {
           <Heading level="2" className="text-[var(--color-signal-white)]">
             Why this exists
           </Heading>
-          <p className="text-[var(--color-echo-gray)]">{leadPrivacy}</p>
+          <p className="whitespace-pre-line text-[var(--color-echo-gray)]">
+            {project.challenge}
+          </p>
         </Container>
       </Section>
       <Section className="bg-[var(--color-deep-space)]">
@@ -130,7 +127,9 @@ export default async function ProjectPage({ params }: Props) {
           <Heading level="2" className="text-[var(--color-signal-white)]">
             How it is built
           </Heading>
-          <p className="text-[var(--color-echo-gray)]">{project.approach}</p>
+          <p className="whitespace-pre-line text-[var(--color-echo-gray)]">
+            {project.approach}
+          </p>
           <div className="rounded-lg border border-[var(--color-void-gray)] bg-[var(--color-obsidian)] p-6">
             <svg viewBox="0 0 600 220" className="h-auto w-full" role="img">
               <title>{project.architectureCaption}</title>
@@ -186,8 +185,8 @@ export default async function ProjectPage({ params }: Props) {
             Screens
           </Heading>
           <div className="grid gap-6 md:grid-cols-2">
-            {project.galleryImages.map((img) => (
-              <figure key={img.src} className="space-y-2">
+            {project.galleryImages.map((img, index) => (
+              <figure key={`${img.src}-${index}`} className="space-y-2">
                 <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-[var(--color-void-gray)]">
                   <Image
                     src={img.src}
@@ -214,7 +213,9 @@ export default async function ProjectPage({ params }: Props) {
           <Heading level="2" className="text-[var(--color-signal-white)]">
             Outcome
           </Heading>
-          <p className="text-[var(--color-echo-gray)]">{project.outcome}</p>
+          <p className="whitespace-pre-line text-[var(--color-echo-gray)]">
+            {project.outcome}
+          </p>
         </Container>
       </Section>
       <Section>

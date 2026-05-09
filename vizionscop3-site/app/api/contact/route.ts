@@ -63,6 +63,12 @@ export async function POST(req: Request) {
       .single();
 
     if (error || !row) {
+      console.error("[contact] Supabase insert failed:", {
+        message: error?.message,
+        code: error?.code,
+        details: error?.details,
+        hint: error?.hint,
+      });
       return NextResponse.json({ error: "Could not save submission" }, { status: 500 });
     }
 

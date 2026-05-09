@@ -10,6 +10,42 @@ function emptyToUndefined(value: unknown): unknown {
   return t === "" ? undefined : t;
 }
 
+/**
+ * Notification inbox (`RESEND_TO_EMAIL`): normalize dashboard quirks, then validate.
+ * Invalid values become `undefined` so `next build` never fails; fix the var in Vercel to enable mail.
+ */
+function preprocessResendToEmail(value: unknown): unknown {
+  const cleared = emptyToUndefined(value);
+  if (cleared === undefined || typeof cleared !== "string") return undefined;
+  let t = cleared.trim();
+  if (
+    (t.startsWith('"') && t.endsWith('"')) ||
+    (t.startsWith("'") && t.endsWith("'"))
+  ) {
+    t = t.slice(1, -1).trim();
+  }
+  const first = t.split(",")[0]?.trim() ?? t;
+  if (first === "") return undefined;
+  let candidate = first;
+  const lt = first.lastIndexOf("<");
+  const gt = first.lastIndexOf(">");
+  if (lt !== -1 && gt > lt) {
+    candidate = first.slice(lt + 1, gt).trim();
+  }
+  if (candidate === "") return undefined;
+  if (/^mailto:/i.test(candidate)) {
+    candidate = candidate.replace(/^mailto:/i, "").trim();
+  }
+  const parsed = z.string().email().safeParse(candidate);
+  if (!parsed.success) {
+    console.warn(
+      "[env] RESEND_TO_EMAIL is not a valid email after normalization; treating as unset. Update this env on Vercel.",
+    );
+    return undefined;
+  }
+  return parsed.data;
+}
+
 /** Resend `from` allows a bare email or `Display Name <email@domain.com>`. */
 function isValidResendFrom(value: string): boolean {
   const trimmed = value.trim();
@@ -65,7 +101,7 @@ const envSchema = z.object({
       .optional(),
   ),
   RESEND_TO_EMAIL: z.preprocess(
-    emptyToUndefined,
+    preprocessResendToEmail,
     z.string().email().optional(),
   ),
   NEXT_PUBLIC_CAL_USERNAME: z.preprocess(emptyToUndefined, z.string().optional()),

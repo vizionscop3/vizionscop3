@@ -36,10 +36,7 @@ const nextConfig: NextConfig = {
   // Repo root is one level up (`vizionscop3-site/` lives under monorepo root).
   outputFileTracingRoot: path.join(__dirname, ".."),
   images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "images.unsplash.com" },
-      { protocol: "https", hostname: "placehold.co" },
-    ],
+    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
   },
   async headers() {
     // Full CSP + HSTS are for production. In `next dev`, strict CSP/HSTS can block or
