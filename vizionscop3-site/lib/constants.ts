@@ -1,125 +1,73 @@
 export const siteConfig = {
-  name: "VizionScop3",
+  name: "VizionScop3 LLC",
+  legalName: "VizionScop3 LLC",
+  domain: "vizionscop3.com",
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
+    "https://vizionscop3.com",
   description:
-    "VizionScop3 builds AI-native technology solutions for organizations ready to lead. Web, mobile, software, databases, and AI infrastructure.",
-  url: "https://vizionscop3.com",
-  ogImage: "https://vizionscop3.com/og.jpg",
-  links: {
-    linkedin: "https://linkedin.com/company/vizionscop3",
-    github: "https://github.com/vizionscop3",
-    email: "hello@vizionscop3.com",
-  },
+    "VizionScop3 is an AI-native technology studio building serious tools for nonprofits, businesses, and enterprises.",
+  ogImage: "/opengraph-image",
   founder: {
     name: "Denward Lee Aulder",
+    handle: "Vizion",
     title: "Founder & CEO",
-    alias: "Vizion",
   },
-  location: {
-    city: "Brooklyn",
-    state: "NY",
-    country: "USA",
+  contact: {
+    email: "hello@vizionscop3.com",
+    phone: "[PLACEHOLDER: business phone]",
+    address: {
+      line1: "[PLACEHOLDER: registered LLC street address]",
+      city: "Brooklyn",
+      state: "NY",
+      postalCode: "[PLACEHOLDER]",
+      country: "US",
+    },
   },
-};
+  social: {
+    github: "https://github.com/vizionscop3",
+    linkedin: "[PLACEHOLDER: LinkedIn URL]",
+    twitter: "[PLACEHOLDER]",
+  },
+  calendar: {
+    username: "vizionscop3",
+    embedUrl: "https://cal.com/vizionscop3/30min",
+  },
+} as const;
 
-export const navLinks = [
-  { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
-  { label: "Industries", href: "/industries" },
-  { label: "About", href: "/about" },
-  { label: "Insights", href: "/insights" },
-  { label: "Contact", href: "/contact" },
-];
+export const navigation = {
+  primary: [
+    { label: "Work", href: "/work" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
+  ],
+  footer: [
+    { label: "Privacy", href: "/privacy" },
+    { label: "Terms", href: "/terms" },
+  ],
+} as const;
 
-export const services = [
-  {
-    slug: "web-development",
-    title: "Web Development",
-    shortDescription: "High-performance web applications and marketing sites",
-    icon: "Globe",
-  },
-  {
-    slug: "mobile-applications",
-    title: "Mobile Applications",
-    shortDescription: "Native and cross-platform mobile experiences",
-    icon: "Smartphone",
-  },
-  {
-    slug: "custom-software",
-    title: "Custom Software",
-    shortDescription: "Bespoke solutions for unique business challenges",
-    icon: "Code",
-  },
-  {
-    slug: "database-engineering",
-    title: "Database Engineering",
-    shortDescription: "Scalable data architecture and optimization",
-    icon: "Database",
-  },
-  {
-    slug: "ai-infrastructure",
-    title: "AI Infrastructure",
-    shortDescription: "Production-ready AI systems and integrations",
-    icon: "Brain",
-  },
-  {
-    slug: "technology-consulting",
-    title: "Technology Consulting",
-    shortDescription: "Strategic guidance for digital transformation",
-    icon: "Lightbulb",
-  },
-];
+export const credibilityPills = [
+  "U.S. Air Force veteran",
+  "Top Secret clearance",
+  "Brooklyn, NY",
+] as const;
 
-export const industries = [
-  {
-    slug: "nonprofits",
-    title: "Nonprofits",
-    description: "Mission-driven technology for community impact",
-  },
-  {
-    slug: "small-business",
-    title: "Small Business",
-    description: "Growth-enabling solutions for ambitious companies",
-  },
-  {
-    slug: "corporate",
-    title: "Corporate",
-    description: "Enterprise-grade systems for established organizations",
-  },
-  {
-    slug: "enterprise",
-    title: "Enterprise & Government",
-    description: "Secure, compliant solutions for regulated industries",
-  },
-];
+/** Static fallback; superseded by Supabase `build_status` when wired (V2.5). */
+export const buildStatusStatic = {
+  isLive: true,
+  messages: [
+    "Currently shipping: T-Trac Phase 4 beta",
+    "Now accepting Q3 project briefs",
+    "The Masjid: 36,313+ hadiths indexed",
+    "Constellation map — three AI-native products, one thesis",
+  ],
+} as const;
 
-export const metrics = {
-  clients: "50+",
-  projects: "200+",
-  practices: "6",
-  uptime: "99.8%",
-  satisfaction: "4.9/5",
-  mvpDays: "14",
-};
+export const PROJECT_SLUGS = [
+  "the-masjid",
+  "t-trac",
+  "vizionfit-pro",
+] as const;
 
-export const methodology = [
-  {
-    phase: "Discover",
-    description: "Deep-dive into your goals, constraints, and opportunities",
-    icon: "Search",
-  },
-  {
-    phase: "Architect",
-    description: "Design scalable systems with AI-accelerated planning",
-    icon: "PenTool",
-  },
-  {
-    phase: "Build",
-    description: "Rapid development with continuous delivery",
-    icon: "Hammer",
-  },
-  {
-    phase: "Evolve",
-    description: "Ongoing optimization and feature expansion",
-    icon: "TrendingUp",
-  },
-];
+export type ProjectSlug = (typeof PROJECT_SLUGS)[number];

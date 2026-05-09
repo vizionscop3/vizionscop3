@@ -1,89 +1,8 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  /* Colors - Primary Background */
-  --color-obsidian: #0A0A0F;
-  --color-deep-space: #12121A;
-  --color-midnight: #1A1A2E;
-
-  /* Colors - Accents */
-  --color-electric-cyan: #00F0FF;
-  --color-plasma-violet: #7C3AED;
-  --color-solar-gold: #FFB800;
-  --color-circuit-green: #00FF88;
-
-  /* Colors - Neutrals */
-  --color-signal-white: #FAFAFA;
-  --color-echo-gray: #9CA3AF;
-  --color-void-gray: #374151;
-
-  /* Typography */
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-
-  /* Spacing scale */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-24: 6rem;
-  --space-32: 8rem;
-
-  /* Border radius */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1.25rem;
-  --radius-xl: 2rem;
-  --radius-full: 9999px;
-
-  /* Shadows */
-  --shadow-glow-cyan: 0 0 24px rgba(0, 240, 255, 0.25);
-  --shadow-glow-violet: 0 0 24px rgba(124, 58, 237, 0.25);
-  --shadow-glow-gold: 0 0 24px rgba(255, 184, 0, 0.25);
-  --shadow-elevation-1: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-elevation-2: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-elevation-3: 0 16px 48px rgba(0, 0, 0, 0.5);
-
-  /* Motion */
-  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
-  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
-  --duration-fast: 200ms;
-  --duration-normal: 400ms;
-  --duration-slow: 800ms;
-}
-
-@theme inline {
-  /* Background colors */
-  --color-background: var(--color-obsidian);
-  --color-foreground: var(--color-signal-white);
-  --color-surface: var(--color-deep-space);
-  --color-surface-elevated: var(--color-midnight);
-  
-  /* Accent colors */
-  --color-primary: var(--color-electric-cyan);
-  --color-secondary: var(--color-plasma-violet);
-  --color-accent: var(--color-solar-gold);
-  --color-success: var(--color-circuit-green);
-  
-  /* Text colors */
-  --color-text-primary: var(--color-signal-white);
-  --color-text-secondary: var(--color-echo-gray);
-  --color-text-muted: var(--color-void-gray);
-  
-  /* Border colors */
-  --color-border: var(--color-void-gray);
-  --color-border-focus: var(--color-electric-cyan);
-
-  /* Fonts */
-  --font-sans: var(--font-body);
-  --font-display: var(--font-display);
-  --font-mono: var(--font-mono);
-}
+@import "../styles/tokens.css";
 
 * {
   box-sizing: border-box;
@@ -91,8 +10,6 @@
   margin: 0;
 }
 
-/* Use 100% (not 100vw) so width matches the layout viewport minus scrollbar; 100vw + overflow-x
-   hidden can clip asymmetrically and make centered content look stuck to one side. */
 html {
   scroll-behavior: smooth;
   width: 100%;
@@ -104,13 +21,19 @@ body {
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
+  background: var(--theme-surface);
+  color: var(--color-signal-white);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  
+
   *,
   *::before,
   *::after {
@@ -120,27 +43,16 @@ body {
   }
 }
 
-body {
-  background: var(--color-obsidian);
-  color: var(--color-signal-white);
-  font-family: var(--font-body);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 ::selection {
   background: var(--color-electric-cyan);
   color: var(--color-obsidian);
 }
 
-/* Focus visible styles */
 :focus-visible {
   outline: 2px solid var(--color-electric-cyan);
   outline-offset: 2px;
 }
 
-/* Skip to content link */
 .skip-to-content {
   position: absolute;
   top: -100%;
@@ -159,7 +71,36 @@ body {
   top: var(--space-4);
 }
 
-/* Scrollbar styling */
+/* Hero mesh gradient (TRD §6.5) */
+.hero-mesh {
+  background:
+    radial-gradient(at 20% 30%, var(--theme-primary) 0px, transparent 50%),
+    radial-gradient(at 80% 20%, var(--color-plasma-violet) 0px, transparent 50%),
+    radial-gradient(at 60% 80%, var(--color-circuit-green) 0px, transparent 50%);
+  filter: blur(80px) saturate(1.2);
+  opacity: 0.22;
+  animation: mesh-drift 20s ease-in-out infinite;
+}
+
+@keyframes mesh-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(-5%, 5%) rotate(120deg);
+  }
+  66% {
+    transform: translate(5%, -5%) rotate(240deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-mesh {
+    animation: none;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -176,4 +117,16 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-echo-gray);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

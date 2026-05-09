@@ -1,28 +1,14 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+
 import { siteConfig } from "@/lib/constants";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = siteConfig.url;
-
-  // Block indexing on non-production environments
-  if (process.env.VERCEL_ENV !== "production") {
-    return {
-      rules: {
-        userAgent: "*",
-        disallow: "/",
-      },
-    };
-  }
-
+  const base = siteConfig.url.replace(/\/$/, "");
   return {
-    rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-        disallow: ["/api/", "/_next/", "/admin/"],
-      },
-    ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    rules: {
+      userAgent: "*",
+      allow: "/",
+    },
+    sitemap: `${base}/sitemap.xml`,
   };
 }

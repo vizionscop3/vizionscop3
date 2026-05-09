@@ -1,5 +1,6 @@
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
+import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
+import { ThemeProvider } from "@/lib/theme/ThemeProvider";
 
 export default function MarketingLayout({
   children,
@@ -7,12 +8,10 @@ export default function MarketingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <ThemeProvider>
       <Header />
-      <main id="main-content" className="w-full min-w-0">
-        {children}
-      </main>
+      <main id="main-content">{children}</main>
       <Footer />
-    </>
+    </ThemeProvider>
   );
 }

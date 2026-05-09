@@ -1,8 +1,8 @@
-export { Button, buttonVariants, type ButtonProps } from "./button";
-export { Badge, badgeVariants, type BadgeProps } from "./badge";
-export { Container } from "./container";
-export { Section } from "./section";
-export { Input, type InputProps } from "./input";
-export { Textarea, type TextareaProps } from "./textarea";
-export { Select, type SelectProps } from "./select";
-export { Heading } from "./heading";
+export { Button, buttonVariants, type ButtonProps } from "./Button";
+export { Badge, badgeVariants, type BadgeProps } from "./Badge";
+export { Container } from "./Container";
+export { Section } from "./Section";
+export { Input, type InputProps } from "./Input";
+export { Textarea, type TextareaProps } from "./Textarea";
+export { Select, type SelectProps } from "./Select";
+export { Heading } from "./Heading";

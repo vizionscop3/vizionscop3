@@ -1,36 +1,23 @@
-import {
-  Hero,
-  ValueProposition,
-  ServicesOverview,
-  FeaturedWork,
-  WhoWeServe,
-  Methodology,
-  SocialProof,
-  InsightsPreview,
-  CTASection,
-} from "@/components/sections";
-import { generateOrganizationJsonLd } from "@/lib/seo";
+import { CTABlock } from "@/components/sections/CTABlock";
+import { FeaturedWork } from "@/components/sections/FeaturedWork";
+import { FounderBlock } from "@/components/sections/FounderBlock";
+import { FounderIdentityStrip } from "@/components/sections/FounderIdentityStrip";
+import { Hero } from "@/components/sections/Hero";
+import { LiveBuildTicker } from "@/components/sections/LiveBuildTicker";
+import { MethodSection } from "@/components/sections/MethodSection";
+import { ServicesGrid } from "@/components/sections/ServicesGrid";
 
 export default function HomePage() {
-  const organizationJsonLd = generateOrganizationJsonLd();
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(organizationJsonLd),
-        }}
-      />
+      <LiveBuildTicker />
       <Hero />
-      <ValueProposition />
-      <ServicesOverview />
+      <FounderIdentityStrip />
       <FeaturedWork />
-      <WhoWeServe />
-      <Methodology />
-      <SocialProof />
-      <InsightsPreview />
-      <CTASection />
+      <ServicesGrid />
+      <MethodSection />
+      <FounderBlock />
+      <CTABlock />
     </>
   );
 }

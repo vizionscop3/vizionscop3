@@ -8,8 +8,10 @@
       },
       "url": [
         "http://localhost:3000/",
-        "http://localhost:3000/contact",
-        "http://localhost:3000/services/web-development"
+        "http://localhost:3000/work",
+        "http://localhost:3000/work/the-masjid",
+        "http://localhost:3000/about",
+        "http://localhost:3000/contact"
       ]
     },
     "assert": {

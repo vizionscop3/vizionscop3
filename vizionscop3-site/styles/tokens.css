@@ -1,0 +1,72 @@
+/* VizionScop3 LLC — design tokens (PRD V1 / V2) */
+
+:root {
+  /* Theme morph (Living Portfolio) — set by ThemeProvider */
+  --theme-primary: var(--color-electric-cyan);
+  --theme-accent: var(--color-plasma-violet);
+  --theme-surface: var(--color-obsidian);
+
+  --color-obsidian: #0a0a0f;
+  --color-deep-space: #12121a;
+  --color-midnight: #1a1a2e;
+  --color-electric-cyan: #00f0ff;
+  --color-plasma-violet: #7c3aed;
+  --color-solar-gold: #ffb800;
+  --color-circuit-green: #00ff88;
+  --color-signal-white: #fafafa;
+  --color-echo-gray: #9ca3af;
+  --color-void-gray: #374151;
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 2rem;
+  --radius-full: 9999px;
+
+  --shadow-glow-cyan: 0 0 24px rgba(0, 240, 255, 0.25);
+  --shadow-glow-violet: 0 0 24px rgba(124, 58, 237, 0.25);
+  --shadow-glow-gold: 0 0 24px rgba(255, 184, 0, 0.25);
+  --shadow-elevation-1: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-elevation-2: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-elevation-3: 0 16px 48px rgba(0, 0, 0, 0.5);
+
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 800ms;
+}
+
+html {
+  transition:
+    background-color 600ms var(--ease-out-expo),
+    color 600ms var(--ease-out-expo);
+}
+
+html[data-theme-morph="on"] body {
+  transition:
+    background-color 600ms var(--ease-out-expo),
+    color 600ms var(--ease-out-expo);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  html[data-theme-morph="on"] body {
+    transition: background-color 200ms ease-out, color 200ms ease-out;
+  }
+}
