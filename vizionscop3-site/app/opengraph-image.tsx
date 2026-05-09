@@ -1,14 +1,23 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
 import { ImageResponse } from "next/og";
 
-import { siteConfig } from "@/lib/constants";
-
-export const runtime = "edge";
+/** Node runtime: load logo from `public/` for a reliable OG preview (logo, not inline page images). */
+export const runtime = "nodejs";
 
 export const size = { width: 1200, height: 630 };
 
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
+export default async function OpenGraphImage() {
+  const logoPath = join(
+    process.cwd(),
+    "public/assets/brand/vizionscop3-logo.png",
+  );
+  const logoBuffer = await readFile(logoPath);
+  const logoSrc = `data:image/png;base64,${logoBuffer.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -16,35 +25,22 @@ export default function OpenGraphImage() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
+          alignItems: "center",
           justifyContent: "center",
-          padding: 64,
           background: "#0a0a0f",
-          color: "#fafafa",
-          fontFamily: "system-ui, sans-serif",
         }}
       >
-        <div
+        <img
+          src={logoSrc}
+          alt=""
           style={{
-            fontSize: 64,
-            fontWeight: 700,
-            letterSpacing: "-2px",
+            maxWidth: "560px",
+            maxHeight: "320px",
+            width: "auto",
+            height: "auto",
+            objectFit: "contain",
           }}
-        >
-          {siteConfig.name.replace(" LLC", "")}
-          <span style={{ color: "#00f0ff" }}>3</span>
-        </div>
-        <div
-          style={{
-            marginTop: 16,
-            fontSize: 28,
-            color: "#9ca3af",
-            maxWidth: 900,
-            lineHeight: 1.35,
-          }}
-        >
-          {siteConfig.description}
-        </div>
+        />
       </div>
     ),
     size,
