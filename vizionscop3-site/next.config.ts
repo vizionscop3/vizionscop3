@@ -35,6 +35,14 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   // Repo root is one level up (`vizionscop3-site/` lives under monorepo root).
   outputFileTracingRoot: path.join(__dirname, ".."),
+  webpack: (config) => {
+    config.ignoreWarnings ??= [];
+    config.ignoreWarnings.push({
+      module: /@opentelemetry\/instrumentation/,
+      message: /Critical dependency: the request of a dependency is an expression/,
+    });
+    return config;
+  },
   images: {
     remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
   },

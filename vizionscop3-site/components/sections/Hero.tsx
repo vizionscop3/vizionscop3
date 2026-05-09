@@ -32,11 +32,13 @@ export function Hero() {
             AI-native technology studio
           </p>
           <Heading as="h1" size="hero" className="mb-6">
-            Serious software for teams who cannot afford guesswork.
+            Branding. Building. Consulting.
           </Heading>
           <p className="mx-auto mb-10 max-w-2xl text-lg text-[var(--color-echo-gray)] md:text-xl">
-            We design and ship web, mobile, data, and AI systems with the same
-            rigor from prototype through production.
+            Stop guessing at the problem. We engineer AI-powered solutions that
+            streamline your operations, eliminate friction in your workflows, and
+            give you back the one thing technology is supposed to deliver — your
+            time. Let&apos;s map the path forward together.
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button size="lg" asChild>

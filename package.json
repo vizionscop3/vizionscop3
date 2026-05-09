@@ -2,7 +2,7 @@
   "name": "vizionscop3-monorepo",
   "private": true,
   "engines": {
-    "node": ">=20.9.0"
+    "node": "22.x"
   },
   "workspaces": ["vizionscop3-site"],
   "dependencies": {
