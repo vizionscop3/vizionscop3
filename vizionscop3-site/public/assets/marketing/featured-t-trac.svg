@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="ttracTitle ttracDesc">
+  <title id="ttracTitle">T-Trac logo and tagline</title>
+  <desc id="ttracDesc">Clinical-blue T-Trac product mark for the VizionScop3 featured work card.</desc>
+  <defs>
+    <linearGradient id="ttPanel" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0EA5E9" stop-opacity="0.32"/>
+      <stop offset="0.55" stop-color="#00F0FF" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#0A0A0F" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="ttHaloA" cx="800" cy="430" r="380" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00F0FF" stop-opacity="0.45"/>
+      <stop offset="0.55" stop-color="#0EA5E9" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#0A0A0F" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="ttGlow" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0  0 0 0 0 0.941  0 0 0 0 1  0 0 0 0.55 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0A0A0F"/>
+  <rect x="40" y="40" width="1520" height="820" rx="36" fill="#12121A" stroke="#1F2A44" stroke-width="2"/>
+  <rect x="40" y="40" width="1520" height="820" rx="36" fill="url(#ttPanel)"/>
+  <circle cx="800" cy="430" r="380" fill="url(#ttHaloA)"/>
+
+  <g opacity="0.4" stroke="#00F0FF" stroke-width="2" fill="none">
+    <path d="M120 200 H320 M1280 200 H1480"/>
+    <path d="M120 700 H320 M1280 700 H1480"/>
+    <path d="M220 120 V250 M1380 650 V780"/>
+    <circle cx="800" cy="430" r="240" stroke-dasharray="14 18"/>
+    <circle cx="800" cy="430" r="170" stroke-dasharray="6 14"/>
+  </g>
+
+  <g filter="url(#ttGlow)">
+    <path d="M800 220 L990 330 V550 L800 660 L610 550 V330 Z" fill="#0B1020" stroke="#00F0FF" stroke-width="8"/>
+    <path d="M800 274 L944 357 V524 L800 607 L656 524 V357 Z" fill="#16213E" stroke="#0EA5E9" stroke-width="4"/>
+    <path d="M756 360 H844" stroke="#FAFAFA" stroke-width="20" stroke-linecap="round"/>
+    <path d="M800 362 V508" stroke="#FAFAFA" stroke-width="20" stroke-linecap="round"/>
+    <path d="M730 432 H856" stroke="#00F0FF" stroke-width="18" stroke-linecap="round"/>
+    <path d="M848 400 L894 432 L848 464" fill="none" stroke="#FFB800" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g font-family="'Space Grotesk', 'Inter', system-ui, sans-serif" text-anchor="middle">
+    <text x="800" y="752" fill="#FAFAFA" font-size="96" font-weight="700" letter-spacing="-1">T-Trac</text>
+    <text x="800" y="808" fill="#9CA3AF" font-size="26" font-weight="600" letter-spacing="10">HRT TRACKING SYSTEM</text>
+  </g>
+
+  <g fill="#00F0FF">
+    <circle cx="100" cy="100" r="6"/>
+    <circle cx="1500" cy="100" r="6"/>
+    <circle cx="100" cy="800" r="6"/>
+    <circle cx="1500" cy="800" r="6"/>
+  </g>
+</svg>

@@ -48,9 +48,9 @@ export function FounderBlock() {
             company.
           </p>
           <blockquote className="mt-8 border-l-2 border-[var(--color-electric-cyan)] pl-6 font-display text-xl font-medium text-[var(--color-signal-white)]">
-            “Every product I've built started as something I needed and
-            couldn't find. The day I realized that pain was a blueprint,
-            VizionScop3 became inevitable.”
+            {
+              "“Every product I've built started as something I needed and couldn't find. The day I realized that pain was a blueprint, VizionScop3 became inevitable.”"
+            }
           </blockquote>
           <Link
             href="/about"

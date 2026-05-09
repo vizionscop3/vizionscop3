@@ -86,6 +86,7 @@ export default async function ProjectPage({ params }: Props) {
               className="object-cover"
               sizes="(min-width: 1280px) 600px, (min-width: 1024px) 50vw, 100vw"
               quality={85}
+              unoptimized={project.heroImage.src.endsWith(".svg")}
             />
           </div>
         </Container>
@@ -195,6 +196,7 @@ export default async function ProjectPage({ params }: Props) {
                     className="object-cover"
                     sizes="(min-width: 1280px) 560px, (min-width: 768px) 45vw, 100vw"
                     quality={85}
+                    unoptimized={img.src.endsWith(".svg")}
                   />
                 </div>
                 {img.caption ? (

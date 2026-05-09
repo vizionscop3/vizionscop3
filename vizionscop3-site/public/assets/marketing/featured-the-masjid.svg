@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="masjidTitle masjidDesc">
+  <title id="masjidTitle">The Masjid logo and tagline</title>
+  <desc id="masjidDesc">Forest-green mosque silhouette with crescent moon for The Masjid prayer companion.</desc>
+  <defs>
+    <linearGradient id="mjPanel" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1F5E3F"/>
+      <stop offset="1" stop-color="#0F3D26"/>
+    </linearGradient>
+    <radialGradient id="mjHalo" cx="800" cy="420" r="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#34A66A" stop-opacity="0.42"/>
+      <stop offset="0.55" stop-color="#1F5E3F" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#0A2417" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="mjMoonGlow" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 1  0 0 0 0 0.722  0 0 0 0 0  0 0 0 0.6 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0A0A0F"/>
+  <rect x="40" y="40" width="1520" height="820" rx="36" fill="url(#mjPanel)" stroke="#0A2417" stroke-width="2"/>
+  <ellipse cx="800" cy="430" rx="460" ry="380" fill="url(#mjHalo)"/>
+
+  <g opacity="0.45" stroke="#34A66A" stroke-width="2" fill="none">
+    <path d="M120 200 H280 M1320 200 H1480"/>
+    <path d="M120 700 H280 M1320 700 H1480"/>
+    <path d="M200 120 V240 M1400 660 V780"/>
+    <circle cx="800" cy="430" r="300" stroke-dasharray="14 18" opacity="0.6"/>
+    <circle cx="800" cy="430" r="220" stroke-dasharray="6 14" opacity="0.5"/>
+  </g>
+
+  <g fill="#F5E8C9" opacity="0.85">
+    <path d="M520 220 l4 -12 l4 12 l12 4 l-12 4 l-4 12 l-4 -12 l-12 -4 z"/>
+    <path d="M1080 200 l3 -9 l3 9 l9 3 l-9 3 l-3 9 l-3 -9 l-9 -3 z"/>
+    <circle cx="610" cy="290" r="2.5"/>
+    <circle cx="990" cy="295" r="2.5"/>
+    <circle cx="450" cy="320" r="2"/>
+    <circle cx="1150" cy="330" r="2"/>
+    <circle cx="700" cy="180" r="1.8"/>
+    <circle cx="900" cy="170" r="1.8"/>
+  </g>
+
+  <g filter="url(#mjMoonGlow)">
+    <path d="M 800 175 a 42 42 0 1 0 32 32 a 32 32 0 1 1 -32 -32 z" fill="#FFB800"/>
+  </g>
+
+  <g fill="#F5E8C9">
+    <rect x="535" y="382" width="42" height="200"/>
+    <ellipse cx="556" cy="384" rx="26" ry="18"/>
+    <rect x="552" y="332" width="8" height="50"/>
+    <circle cx="556" cy="326" r="6"/>
+    <rect x="540" y="442" width="32" height="14" fill="#1F5E3F"/>
+    <rect x="540" y="490" width="32" height="14" fill="#1F5E3F"/>
+    <rect x="540" y="538" width="32" height="14" fill="#1F5E3F"/>
+
+    <rect x="1023" y="382" width="42" height="200"/>
+    <ellipse cx="1044" cy="384" rx="26" ry="18"/>
+    <rect x="1040" y="332" width="8" height="50"/>
+    <circle cx="1044" cy="326" r="6"/>
+    <rect x="1028" y="442" width="32" height="14" fill="#1F5E3F"/>
+    <rect x="1028" y="490" width="32" height="14" fill="#1F5E3F"/>
+    <rect x="1028" y="538" width="32" height="14" fill="#1F5E3F"/>
+
+    <rect x="620" y="442" width="360" height="140"/>
+
+    <path d="M 690 442 Q 800 270 910 442 Z"/>
+
+    <rect x="794" y="240" width="12" height="42"/>
+    <circle cx="800" cy="232" r="9"/>
+    <path d="M 800 215 a 16 16 0 1 0 12 12 a 12 12 0 1 1 -12 -12 z" fill="#FFB800"/>
+
+    <rect x="585" y="582" width="430" height="14"/>
+
+    <path d="M 770 582 L 770 525 Q 770 495 800 495 Q 830 495 830 525 L 830 582 Z" fill="#1F5E3F"/>
+    <path d="M 670 540 L 670 510 Q 670 495 685 495 Q 700 495 700 510 L 700 540 Z" fill="#1F5E3F"/>
+    <path d="M 900 540 L 900 510 Q 900 495 915 495 Q 930 495 930 510 L 930 540 Z" fill="#1F5E3F"/>
+
+    <rect x="690" y="555" width="20" height="3" fill="#1F5E3F"/>
+    <rect x="890" y="555" width="20" height="3" fill="#1F5E3F"/>
+  </g>
+
+  <g text-anchor="middle" font-family="'Space Grotesk', 'Inter', system-ui, sans-serif">
+    <text x="800" y="710" fill="#F5E8C9" font-size="92" font-weight="700" letter-spacing="-1">The Masjid</text>
+    <text x="800" y="768" fill="#D4B97D" font-size="26" font-weight="600" letter-spacing="10">PRAYER COMPANION</text>
+  </g>
+
+  <g fill="#00F0FF">
+    <circle cx="100" cy="100" r="6"/>
+    <circle cx="1500" cy="100" r="6"/>
+    <circle cx="100" cy="800" r="6"/>
+    <circle cx="1500" cy="800" r="6"/>
+  </g>
+</svg>

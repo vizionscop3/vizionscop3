@@ -38,6 +38,11 @@ const nextConfig: NextConfig = {
     ],
   },
   async headers() {
+    // Full CSP + HSTS are for production. In `next dev`, strict CSP/HSTS can block or
+    // interfere with stylesheet delivery (page renders unstyled; layout/grid collapse).
+    if (process.env.NODE_ENV !== "production") {
+      return [];
+    }
     return [{ source: "/:path*", headers: securityHeaders }];
   },
 };

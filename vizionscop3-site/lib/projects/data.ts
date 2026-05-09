@@ -34,7 +34,7 @@ export const projects: Project[] = [
     platform: ["ios", "android", "web"],
     timeline: "[PLACEHOLDER: timeline]",
     heroImage: {
-      src: "/assets/marketing/featured-the-masjid.png",
+      src: "/assets/marketing/featured-the-masjid.svg",
       width: 213,
       height: 150,
       alt: "The Masjid logo and tagline — marketing graphic",
@@ -129,7 +129,7 @@ export const projects: Project[] = [
     platform: ["ios", "android"],
     timeline: "[PLACEHOLDER: timeline]",
     heroImage: {
-      src: "/assets/marketing/featured-t-trac.png",
+      src: "/assets/marketing/featured-t-trac.svg",
       width: 213,
       height: 150,
       alt: "T-Trac logo and tagline — marketing graphic (no real user data)",
@@ -222,7 +222,7 @@ export const projects: Project[] = [
     platform: ["ios", "android"],
     timeline: "[PLACEHOLDER: timeline]",
     heroImage: {
-      src: "/assets/work/vizionfit-pro-hero.png",
+      src: "/assets/work/vizionfit-pro-hero.svg",
       width: 213,
       height: 150,
       alt: "VizionFit Pro product preview",
@@ -230,7 +230,7 @@ export const projects: Project[] = [
     },
     galleryImages: [
       {
-        src: "/assets/work/vizionfit-pro-hero.png",
+        src: "/assets/work/vizionfit-pro-hero.svg",
         width: 213,
         height: 150,
         alt: "VizionFit Pro HUD-style product mark",
