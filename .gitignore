@@ -1,2 +1,7 @@
 node_modules/
 .vercel
+
+.DS_Store
+
+# Supabase CLI local artifacts (keep migrations tracked)
+vizionscop3-site/supabase/.temp/

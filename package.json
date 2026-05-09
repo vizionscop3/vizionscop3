@@ -1,6 +1,9 @@
 {
   "name": "vizionscop3-monorepo",
   "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "workspaces": ["vizionscop3-site"],
   "dependencies": {
     "next": "^15.1.5",
