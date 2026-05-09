@@ -131,7 +131,7 @@ export default async function ProjectPage({ params }: Props) {
           </Heading>
           <p className="text-[var(--color-echo-gray)]">{project.approach}</p>
           <div className="rounded-lg border border-[var(--color-void-gray)] bg-[var(--color-obsidian)] p-6">
-            <svg viewBox="0 0 600 220" className="h-auto w-full" aria-hidden>
+            <svg viewBox="0 0 600 220" className="h-auto w-full" role="img">
               <title>{project.architectureCaption}</title>
               <rect
                 x="40"

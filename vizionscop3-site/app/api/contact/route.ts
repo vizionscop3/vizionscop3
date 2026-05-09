@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { env } from "@/lib/env";
+import { env, requireContactEnv } from "@/lib/env";
 import { verifyHCaptcha } from "@/lib/email/hcaptcha";
 import { sendContactConfirmation, sendContactNotification } from "@/lib/email/resend";
 import { HttpError } from "@/lib/http";
@@ -42,6 +42,8 @@ export async function POST(req: Request) {
       }
     }
 
+    requireContactEnv();
+
     const supabase = createServiceClient();
     const { data: row, error } = await supabase
       .from("contact_submissions")
@@ -77,10 +79,18 @@ export async function POST(req: Request) {
       description: data.description,
     };
 
-    await Promise.all([
-      sendContactNotification(payload),
-      sendContactConfirmation(payload),
-    ]);
+    try {
+      await Promise.all([
+        sendContactNotification(payload),
+        sendContactConfirmation(payload),
+      ]);
+    } catch {
+      await supabase.from("contact_submissions").delete().eq("id", row.id);
+      return NextResponse.json(
+        { error: "Could not deliver inquiry — please try again or email hello@vizionscop3.com" },
+        { status: 502 },
+      );
+    }
 
     return NextResponse.json({ ok: true });
   } catch (e) {

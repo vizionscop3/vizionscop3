@@ -38,7 +38,7 @@ export function ProjectCard({
         />
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        <Badge tone={statusTone}>{project.status.replace("-", " ")}</Badge>
+        <Badge tone={statusTone}>{project.status.replace(/-/g, " ")}</Badge>
         {project.filters.filter((f) => f !== "all").map((f) => (
           <Badge key={f} tone="default">
             {f}
