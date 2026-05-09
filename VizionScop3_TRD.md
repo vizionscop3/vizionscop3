@@ -289,7 +289,7 @@ SUPABASE_SERVICE_ROLE_KEY=
 
 # Resend (transactional email)
 RESEND_API_KEY=
-RESEND_FROM_EMAIL=hello@vizionscop3.com
+RESEND_FROM_EMAIL=contact@vizionscop3.com
 RESEND_TO_EMAIL=vizion@vizionscop3.com
 
 # Cal.com
@@ -1172,7 +1172,7 @@ export function buildMetadata({
   },
   "contactPoint": {
     "@type": "ContactPoint",
-    "email": "hello@vizionscop3.com",
+    "email": "contact@vizionscop3.com",
     "contactType": "customer support"
   },
   "sameAs": [

@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/Button";
+import { siteConfig } from "@/lib/constants";
 
 const CalIframe = dynamic(() => import("@/components/forms/CalEmbed"), {
   ssr: false,
@@ -17,8 +18,7 @@ const CalIframe = dynamic(() => import("@/components/forms/CalEmbed"), {
 
 export function CalEmbedGate() {
   const [show, setShow] = useState(false);
-  const username = process.env.NEXT_PUBLIC_CAL_USERNAME ?? "vizionscop3";
-  const href = `https://cal.com/${username}`;
+  const href = siteConfig.calendar.embedUrl.replace(/\?.*$/, "");
 
   return (
     <div className="mt-4 space-y-3">

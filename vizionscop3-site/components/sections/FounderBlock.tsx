@@ -12,7 +12,7 @@ export function FounderBlock() {
       <Container className="grid gap-10 lg:grid-cols-[280px_1fr] lg:items-start">
         <div className="relative mx-auto aspect-[4/5] w-full max-w-[280px] shrink-0 overflow-hidden rounded-lg border border-[var(--color-void-gray)] lg:mx-0">
           <Image
-            src="https://placehold.co/800x1000/1a1a2e/00f0ff/png?text=Vizion"
+            src="/assets/marketing/founder-portrait.png"
             alt={`${siteConfig.founder.name}, ${siteConfig.founder.title}`}
             fill
             className="object-cover"
@@ -28,15 +28,29 @@ export function FounderBlock() {
             {siteConfig.founder.name} · {siteConfig.founder.title}
           </p>
           <p className="mt-6 text-[var(--color-echo-gray)]">
-            [PLACEHOLDER: first paragraph — origin story, military background,
-            and why VizionScop3 exists.]
+            My name is Denward Lee Aulder, a first-generation Guyanese American
+            raised in the Bedford-Stuyvesant neighborhood of Brooklyn. After
+            graduating from Boys and Girls High School, I enlisted in the United
+            States Air Force, where I earned a Top Secret security clearance and
+            served alongside organizations including the NSA, CIA, and other
+            agencies within the national security community.
           </p>
           <p className="mt-4 text-[var(--color-echo-gray)]">
-            [PLACEHOLDER: second paragraph — what AI-native means in practice and
-            how you work with clients.]
+            VizionScop3 emerged years after my service concluded. Technology has
+            been a lifelong passion of mine since childhood, and the rise of AI
+            drew me even deeper — I found myself fully immersed in exploring
+            everything the technology could do and become. That curiosity
+            eventually led me to Pursuit, a program a colleague introduced me
+            to, which traditionally trained students to become software
+            engineers. By the time my cohort began, Pursuit had evolved its
+            curriculum into the AI-Native Builders program — and that pivot
+            became the launching point for VizionScop3 as a technical solutions
+            company.
           </p>
           <blockquote className="mt-8 border-l-2 border-[var(--color-electric-cyan)] pl-6 font-display text-xl font-medium text-[var(--color-signal-white)]">
-            “If it ships, it has to earn trust on day one.”
+            {
+              "“Every product I've built started as something I needed and couldn't find. The day I realized that pain was a blueprint, VizionScop3 became inevitable.”"
+            }
           </blockquote>
           <Link
             href="/about"

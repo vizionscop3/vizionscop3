@@ -63,24 +63,89 @@ export default function PrivacyPage() {
         <h2 className="font-display text-xl font-semibold text-[var(--color-signal-white)]">
           Retention
         </h2>
-        <p>
-          [PLACEHOLDER: retention periods for contact records, logs, and backups —
-          customize to your legal counsel guidance.]
-        </p>
-        <h2 className="font-display text-xl font-semibold text-[var(--color-signal-white)]">
-          Your choices
-        </h2>
-        <p>
-          You may request access, correction, or deletion where applicable by
-          emailing{" "}
-          <a
-            className="text-[var(--color-electric-cyan)] hover:underline"
-            href={`mailto:${siteConfig.contact.email}`}
-          >
-            {siteConfig.contact.email}
-          </a>
-          . We may need to verify your request.
-        </p>
+        <div className="space-y-4">
+          <p>
+            We retain personal information only for as long as necessary to fulfill
+            the purposes outlined in this Privacy Policy, comply with our legal
+            obligations, resolve disputes, and enforce our agreements. Specific
+            retention periods are as follows:
+          </p>
+          <h3 className="font-display text-lg font-semibold text-[var(--color-signal-white)]">
+            Contact form submissions
+          </h3>
+          <p>
+            Information submitted through our contact form is retained for up to
+            twenty-four (24) months from the date of submission to support ongoing
+            client communications, project planning, and follow-up engagement.
+            Submissions that result in an active client relationship are retained for
+            the duration of that relationship and an additional seven (7) years
+            thereafter for business, tax, and legal recordkeeping purposes.
+            Submissions identified as spam or invalid are deleted within thirty (30)
+            days.
+          </p>
+          <h3 className="font-display text-lg font-semibold text-[var(--color-signal-white)]">
+            Email correspondence
+          </h3>
+          <p>
+            Emails exchanged with {siteConfig.legalName} are retained for up to seven
+            (7) years to support client relationship management, project continuity,
+            and compliance with applicable tax and business record requirements.
+          </p>
+          <h3 className="font-display text-lg font-semibold text-[var(--color-signal-white)]">
+            Server logs and technical data
+          </h3>
+          <p>
+            Access logs, error logs, and security-related technical data — including
+            IP addresses, user agent strings, and request metadata — are retained for
+            up to ninety (90) days for security monitoring, fraud prevention, and
+            operational diagnostics, after which they are automatically purged or
+            anonymized.
+          </p>
+          <h3 className="font-display text-lg font-semibold text-[var(--color-signal-white)]">
+            Analytics data
+          </h3>
+          <p>
+            Aggregated and anonymized analytics data may be retained indefinitely for
+            business intelligence purposes. Individual session data is retained
+            according to the policies of our analytics providers, typically not
+            exceeding twenty-five (25) months.
+          </p>
+          <h3 className="font-display text-lg font-semibold text-[var(--color-signal-white)]">
+            Backup systems
+          </h3>
+          <p>
+            Routine backups of our systems are retained for up to ninety (90) days on
+            a rolling basis. When personal information is deleted from our active
+            systems, residual copies in backups are overwritten in the normal course
+            of backup rotation and are not actively accessed except in the event of
+            system recovery.
+          </p>
+          <h3 className="font-display text-lg font-semibold text-[var(--color-signal-white)]">
+            Legal and compliance holds
+          </h3>
+          <p>
+            Notwithstanding the periods above, we may retain certain information for
+            longer periods when required by applicable law, when needed to establish,
+            exercise, or defend legal claims, or when subject to a legal hold or
+            regulatory investigation.
+          </p>
+          <h3 className="font-display text-lg font-semibold text-[var(--color-signal-white)]">
+            Your rights regarding retention
+          </h3>
+          <p>
+            You may request deletion of your personal information at any time by
+            contacting us at{" "}
+            <a
+              className="text-[var(--color-electric-cyan)] hover:underline"
+              href={`mailto:${siteConfig.contact.email}`}
+            >
+              {siteConfig.contact.email}
+            </a>
+            . We will honor verified deletion requests within thirty (30) days,
+            except where retention is required by law or necessary to support an
+            ongoing client engagement, dispute, or legal obligation.
+          </p>
+        </div>
         <h2 className="font-display text-xl font-semibold text-[var(--color-signal-white)]">
           Children
         </h2>

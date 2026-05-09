@@ -7,6 +7,7 @@ import type { ProjectSlug } from "@/lib/constants";
 import type { ConstellationEdge } from "@/lib/projects/constellation";
 import { constellationEdges } from "@/lib/projects/constellation";
 import type { Project } from "@/lib/projects/types";
+import { TechStackHoverTrigger } from "@/components/work/TechStackHoverTrigger";
 import { cn } from "@/lib/utils";
 
 const VIEW = 100;
@@ -102,6 +103,14 @@ export function ConstellationMap({ projects }: { projects: Project[] }) {
           <p className="mt-1">{hovered.edge.sharedTech.join(" · ")}</p>
         </div>
       ) : null}
+      <div
+        className="mt-6 flex flex-wrap items-start justify-center gap-3 gap-y-4"
+        aria-label="Per-project technology stacks"
+      >
+        {projects.map((p) => (
+          <TechStackHoverTrigger key={p.slug} project={p} />
+        ))}
+      </div>
     </div>
   );
 }

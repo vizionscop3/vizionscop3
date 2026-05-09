@@ -1,3 +1,5 @@
+import path from "path";
+
 import type { NextConfig } from "next";
 
 const securityHeaders = [
@@ -31,13 +33,25 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Repo root is one level up (`vizionscop3-site/` lives under monorepo root).
+  outputFileTracingRoot: path.join(__dirname, ".."),
+  webpack: (config) => {
+    config.ignoreWarnings ??= [];
+    config.ignoreWarnings.push({
+      module: /@opentelemetry\/instrumentation/,
+      message: /Critical dependency: the request of a dependency is an expression/,
+    });
+    return config;
+  },
   images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "images.unsplash.com" },
-      { protocol: "https", hostname: "placehold.co" },
-    ],
+    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
   },
   async headers() {
+    // Full CSP + HSTS are for production. In `next dev`, strict CSP/HSTS can block or
+    // interfere with stylesheet delivery (page renders unstyled; layout/grid collapse).
+    if (process.env.NODE_ENV !== "production") {
+      return [];
+    }
     return [{ source: "/:path*", headers: securityHeaders }];
   },
 };

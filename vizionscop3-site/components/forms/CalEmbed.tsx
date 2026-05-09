@@ -1,9 +1,12 @@
 "use client";
 
+import { siteConfig } from "@/lib/constants";
+
 export default function CalEmbed() {
-  const username =
-    process.env.NEXT_PUBLIC_CAL_USERNAME ?? "vizionscop3";
-  const src = `https://cal.com/${username}?embed=true`;
+  const embedBase = siteConfig.calendar.embedUrl;
+  const src = embedBase.includes("?")
+    ? `${embedBase}&embed=true`
+    : `${embedBase}?embed=true`;
   return (
     <iframe
       title="Cal.com scheduling"

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { env } from "@/lib/env";
+import { env, requireContactEnv } from "@/lib/env";
 import { verifyHCaptcha } from "@/lib/email/hcaptcha";
 import { sendContactConfirmation, sendContactNotification } from "@/lib/email/resend";
 import { HttpError } from "@/lib/http";
@@ -18,6 +18,7 @@ function clientIp(req: Request) {
 
 export async function POST(req: Request) {
   try {
+    requireContactEnv();
     const ip = clientIp(req);
     await assertContactRateLimit(ip);
     const json: unknown = await req.json();
@@ -62,6 +63,12 @@ export async function POST(req: Request) {
       .single();
 
     if (error || !row) {
+      console.error("[contact] Supabase insert failed:", {
+        message: error?.message,
+        code: error?.code,
+        details: error?.details,
+        hint: error?.hint,
+      });
       return NextResponse.json({ error: "Could not save submission" }, { status: 500 });
     }
 
@@ -77,16 +84,25 @@ export async function POST(req: Request) {
       description: data.description,
     };
 
-    await Promise.all([
-      sendContactNotification(payload),
-      sendContactConfirmation(payload),
-    ]);
+    try {
+      await Promise.all([
+        sendContactNotification(payload),
+        sendContactConfirmation(payload),
+      ]);
+    } catch {
+      await supabase.from("contact_submissions").delete().eq("id", row.id);
+      return NextResponse.json(
+        { error: "Could not deliver inquiry — please try again or email contact@vizionscop3.com" },
+        { status: 502 },
+      );
+    }
 
     return NextResponse.json({ ok: true });
   } catch (e) {
     if (e instanceof HttpError) {
       return NextResponse.json({ error: e.message }, { status: e.status });
     }
+    console.error("[contact] Unhandled POST error:", e);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

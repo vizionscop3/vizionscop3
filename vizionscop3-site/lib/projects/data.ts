@@ -1,15 +1,6 @@
-import type { Project } from "@/lib/projects/types";
 import type { ProjectSlug } from "@/lib/constants";
-
-const ph = (
-  w: number,
-  h: number,
-  text: string,
-): Pick<Project["heroImage"], "src" | "width" | "height"> => ({
-  src: `https://placehold.co/${w}x${h}/1a1a2e/00f0ff/png?text=${encodeURIComponent(text)}`,
-  width: w,
-  height: h,
-});
+import { siteConfig } from "@/lib/constants";
+import type { Project } from "@/lib/projects/types";
 
 export const projects: Project[] = [
   {
@@ -23,31 +14,40 @@ export const projects: Project[] = [
     description:
       "A spiritually grounded mobile application for prayer times, qibla direction, and AI-assisted hadith research grounded in authentic sources.",
     challenge:
-      "[PLACEHOLDER: 2–3 paragraphs on the gap, audience, and why this product exists.]",
+      "Muslims worldwide rely on accurate prayer times, reliable qibla direction, and trustworthy religious reference material. Generic assistants can summarize inaccurately or omit citations, which is unacceptable for sacred text.\n\nThe Masjid exists for people who want daily prayer support and serious hadith exploration in one calm, respectful experience — built with sourcing discipline, not generic chat behavior.",
     approach:
-      "[PLACEHOLDER: RAG architecture, vectorization, location/offline decisions, and key technical choices.]",
+      "The product pairs a large, structured hadith corpus (36,313+ records) with retrieval-augmented generation so answers stay anchored to real passages rather than model improvisation. Vectors (Pinecone) power semantic discovery; Supabase holds application data with conventional access patterns.\n\nPrayer logic respects location and calculation preferences. The mobile shell is React Native and Expo so the same codebase ships to iOS and Android with native-feeling navigation and offline-friendly surfaces where it matters.",
     outcome:
-      "[PLACEHOLDER: what shipped, distribution status, and honest next steps.]",
+      "The corpus is indexed and the core mobile experience is in active development toward a demo-ready milestone for stakeholder review (including Pursuit AI Native Program presentation goals). Distribution through app stores will follow final QA, accessibility passes, and scholar-aligned review of retrieval behavior.\n\nNext steps are hardened RAG evaluation, expanded UX polish, and production release planning.",
     architectureCaption:
       "RAG retrieval over a structured hadith corpus, location-aware prayer logic, and mobile-first delivery.",
     industry: "religious",
     platform: ["ios", "android", "web"],
-    timeline: "[PLACEHOLDER: timeline]",
+    timeline: "2024–present — active engineering toward public release",
     heroImage: {
-      ...ph(1920, 1080, "The+Masjid"),
-      alt: "The Masjid app interface preview",
-      caption: "[PLACEHOLDER: hero caption]",
+      src: "/assets/marketing/featured-the-masjid.svg",
+      width: 213,
+      height: 150,
+      alt: "The Masjid logo and tagline — marketing graphic",
+      caption:
+        "Brand-forward preview of The Masjid — contemplative palette and product positioning.",
     },
     galleryImages: [
       {
-        ...ph(1200, 800, "Screen+1"),
-        alt: "[PLACEHOLDER: screen 1 description]",
-        caption: "[PLACEHOLDER]",
+        src: "/assets/marketing/featured-the-masjid.svg",
+        width: 213,
+        height: 150,
+        alt: "The Masjid marketing lockup on deep emerald background",
+        caption:
+          "Representative marketing visual — in-app screens reflect prayer, qibla, and hadith flows.",
       },
       {
-        ...ph(1200, 800, "Screen+2"),
-        alt: "[PLACEHOLDER: screen 2 description]",
-        caption: "[PLACEHOLDER]",
+        src: "/assets/marketing/featured-the-masjid.png",
+        width: 1200,
+        height: 675,
+        alt: "The Masjid wordmark and prayer-companion positioning",
+        caption:
+          "Product thesis: accuracy, citation-minded AI, and mobile-first ritual support.",
       },
     ],
     techStack: [
@@ -68,8 +68,8 @@ export const projects: Project[] = [
       },
       {
         category: "Infrastructure",
-        technologies: ["Vercel", "Edge functions"],
-        tooltip: "Edge-ready APIs where latency matters.",
+        technologies: ["Vercel", "Serverless APIs"],
+        tooltip: "Hosted APIs and previews aligned with the rest of the VizionScop3 stack.",
       },
     ],
     metrics: [
@@ -79,20 +79,18 @@ export const projects: Project[] = [
         highlight: true,
       },
       {
-        label: "Languages supported",
-        value: "[PLACEHOLDER]",
+        label: "Authenticity taxonomy",
+        value: "Sahih · Hasan · Da'if",
         highlight: false,
       },
       {
-        label: "Active users",
-        value: "[PLACEHOLDER]",
+        label: "Delivery",
+        value: "iOS · Android · Web",
         highlight: false,
       },
     ],
     links: {
-      liveUrl: "[PLACEHOLDER: app or web URL]",
-      appStoreUrl: "[PLACEHOLDER: App Store]",
-      playStoreUrl: "[PLACEHOLDER: Play Store]",
+      liveUrl: `${siteConfig.url}/contact`,
     },
     theme: {
       primary: "#10B981",
@@ -109,38 +107,47 @@ export const projects: Project[] = [
     slug: "t-trac",
     name: "T-Trac",
     tagline:
-      "HRT medication tracking built for transgender men, with privacy designed in from day one.",
+      "HRT medication tracking built for transgender men, with HIPAA-conscious safeguards and privacy as the default.",
     status: "beta",
     featured: true,
     order: 2,
     description:
       "A clinical, trustworthy mobile experience for injection logging, journaling, and care coordination — with health data treated as sacred.",
     challenge:
-      "[PLACEHOLDER: frame health privacy as the lead — user need, regulatory context, and product intent.]",
+      "Trans masculine people managing HRT need a private, structured place to log injections, capture how they feel over time, and share context with care teams when they choose to — without surveillance-style analytics or vague privacy policies.\n\nHealth-adjacent products fail when security is bolted on late: T-Trac is framed so data minimization, access control, and audit-friendly patterns are part of the product story from the first screen, not an appendix.",
     approach:
-      "[PLACEHOLDER: React Native/Expo, Supabase, vector memory where applicable, and compliance posture.]",
+      "T-Trac ships on React Native and Expo for a single codebase across iOS and Android. Supabase provides Postgres, authentication, and row-level security so users only ever touch their own rows.\n\nOptional AI-assisted coaching surfaces use Anthropic and Pinecone with narrow scopes and review-friendly logging — never as a substitute for clinical advice. Where organizations require it, Auth0 integrates for enterprise-grade identity; flows are designed so sensitive fields stay out of marketing and error telemetry.",
     outcome:
-      "[PLACEHOLDER: beta status, tester count only if real, roadmap.]",
+      "The product is in Phase 4 invite-only beta: core injection and journaling loops are implemented, privacy boundaries are explicit in the architecture, and feedback is shaping reporting and reminder behavior.\n\nPublic launch timing follows security review, store compliance, and continued validation with trusted testers — not arbitrary deadlines.",
     architectureCaption:
       "Mobile client on Expo, Supabase for auth/data, and careful separation of PHI from analytics surfaces.",
     industry: "healthcare",
     platform: ["ios", "android"],
-    timeline: "[PLACEHOLDER: timeline]",
+    timeline: "2024–present — Phase 4 invite-only beta",
     heroImage: {
-      ...ph(1920, 1080, "T-Trac"),
-      alt: "T-Trac app shell preview (no real user data)",
-      caption: "UI shell only — no real user data in marketing screenshots.",
+      src: "/assets/marketing/featured-t-trac.svg",
+      width: 213,
+      height: 150,
+      alt: "T-Trac logo and tagline — marketing graphic (no real user data)",
+      caption:
+        "Marketing-only graphic — case study visuals are shells; no real PHI or user metrics are shown.",
     },
     galleryImages: [
       {
-        ...ph(1200, 800, "T-Trac+1"),
-        alt: "Placeholder dashboard shell",
-        caption: "[PLACEHOLDER]",
+        src: "/assets/marketing/featured-t-trac.svg",
+        width: 213,
+        height: 150,
+        alt: "T-Trac clinical-blue branding and product positioning",
+        caption:
+          "Design direction: precise typography and calm surfaces suited to health journaling.",
       },
       {
-        ...ph(1200, 800, "T-Trac+2"),
-        alt: "Placeholder history shell",
-        caption: "[PLACEHOLDER]",
+        src: "/assets/marketing/featured-t-trac.svg",
+        width: 213,
+        height: 150,
+        alt: "T-Trac product mark — injection tracking and wellness focus",
+        caption:
+          "Feature focus: structured injection history, mood and notes, and privacy-first defaults.",
       },
     ],
     techStack: [
@@ -177,13 +184,18 @@ export const projects: Project[] = [
         highlight: true,
       },
       {
-        label: "Beta testers",
-        value: "[PLACEHOLDER: only if verified]",
+        label: "Access model",
+        value: "Invite-only",
+        highlight: false,
+      },
+      {
+        label: "Data posture",
+        value: "RLS · min. telemetry",
         highlight: false,
       },
     ],
     links: {
-      liveUrl: "[PLACEHOLDER: Expo / TestFlight / waitlist URL]",
+      liveUrl: `${siteConfig.url}/contact`,
     },
     theme: {
       primary: "#0EA5E9",
@@ -200,33 +212,47 @@ export const projects: Project[] = [
     slug: "vizionfit-pro",
     name: "VizionFit Pro",
     tagline:
-      "An AI fitness platform combining expert training methodologies with personalization.",
+      "An AI fitness platform combining Charles Glass and Jeff Cavaliere methodologies with adaptive coaching.",
     status: "in-development",
     featured: true,
     order: 3,
     description:
-      "Mobile-first coaching that respects biomechanics, progressive overload, and individual readiness signals.",
+      "Mobile-first coaching that respects biomechanics, progressive overload, and individual readiness signals — with expert programming vocabulary translated into daily sessions you can actually run in the gym.",
     challenge:
-      "[PLACEHOLDER: who it's for and the coaching gap you're solving.]",
+      "Most fitness apps are generic rep counters or static PDF programs. Serious trainees want coaching language rooted in established strength principles, but still need guidance that adapts when sleep, stress, or schedule changes.\n\nVizionFit Pro targets lifters who outgrow cookie-cutter templates yet still want structure, accountability, and explanations they can trust.",
     approach:
-      "[PLACEHOLDER: AI personalization, content pipeline, and mobile architecture.]",
+      "The stack centers on React Native for a gym-ready UI (thumb reach, glanceable sets, fast logging) and Supabase for profiles, training history, and progression data.\n\nAnthropic-powered assists generate session copy, adjustments, and teaching moments within guardrails defined by VizionScop3 — expert methodologies inform the system prompts and review checklist, not anonymous internet advice.",
     outcome:
-      "[PLACEHOLDER: current status — waitlist, beta, or internal dogfood.]",
+      "VizionFit Pro remains in active product development: programming models, coaching tone, and analytics hooks are being validated internally before a broader beta.\n\nPartnerships, waitlist timing, and store submission will be announced once the training loop meets our bar for safety copy and performance. Interested athletes and gyms can reach out via the contact page for early access conversations.",
     architectureCaption:
       "Mobile client, Supabase backend, and model-driven programming with human-in-the-loop review.",
     industry: "fitness",
     platform: ["ios", "android"],
-    timeline: "[PLACEHOLDER: timeline]",
+    timeline: "2025–present — engineering and internal validation",
     heroImage: {
-      ...ph(1920, 1080, "VizionFit"),
+      src: "/assets/work/vizionfit-pro-hero.svg",
+      width: 213,
+      height: 150,
       alt: "VizionFit Pro product preview",
-      caption: "[PLACEHOLDER]",
+      caption:
+        "HUD-inspired hero — kinetic red and gold system tied to VizionFit Pro's training identity.",
     },
     galleryImages: [
       {
-        ...ph(1200, 800, "VF+1"),
-        alt: "[PLACEHOLDER]",
-        caption: "[PLACEHOLDER]",
+        src: "/assets/work/vizionfit-pro-hero.svg",
+        width: 213,
+        height: 150,
+        alt: "VizionFit Pro HUD-style product mark",
+        caption:
+          "Visual language emphasizes power, clarity, and motion — matching in-app coaching energy.",
+      },
+      {
+        src: "/assets/work/vizionfit-pro-hero.png",
+        width: 1200,
+        height: 675,
+        alt: "VizionFit Pro alternate hero treatment",
+        caption:
+          "Alternate raster treatment for marketing — full UI previews ship with the beta program.",
       },
     ],
     techStack: [
@@ -252,9 +278,19 @@ export const projects: Project[] = [
         value: "In development",
         highlight: true,
       },
+      {
+        label: "Client",
+        value: "React Native",
+        highlight: false,
+      },
+      {
+        label: "Coaching model",
+        value: "Expert + AI assist",
+        highlight: false,
+      },
     ],
     links: {
-      liveUrl: "[PLACEHOLDER: waitlist or marketing page]",
+      liveUrl: `${siteConfig.url}/contact`,
     },
     theme: {
       primary: "#EF4444",
@@ -265,7 +301,7 @@ export const projects: Project[] = [
     filters: ["all", "ai", "mobile"],
     metaTitle: "VizionFit Pro",
     metaDescription:
-      "AI-native fitness coaching — expert methodologies, mobile-first execution.",
+      "AI fitness coaching grounded in Charles Glass and Jeff Cavaliere methodologies — mobile-first, in active development at VizionScop3.",
   },
 ];
 

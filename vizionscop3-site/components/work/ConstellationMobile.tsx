@@ -1,6 +1,7 @@
 import type { ConstellationEdge } from "@/lib/projects/constellation";
 import { constellationEdges } from "@/lib/projects/constellation";
 import type { Project } from "@/lib/projects/types";
+import { TechStackHoverTrigger } from "@/components/work/TechStackHoverTrigger";
 
 export function ConstellationMobile({ projects }: { projects: Project[] }) {
   return (
@@ -25,6 +26,9 @@ export function ConstellationMobile({ projects }: { projects: Project[] }) {
                   {tech}
                 </span>
               ))}
+          </div>
+          <div className="mt-4 flex justify-start">
+            <TechStackHoverTrigger project={p} />
           </div>
         </div>
       ))}

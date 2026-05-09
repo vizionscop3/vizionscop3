@@ -35,8 +35,7 @@ export default function ContactPage() {
               Prefer scheduling?
             </Heading>
             <p className="mt-3 text-sm text-[var(--color-echo-gray)]">
-              Book a 30-minute working session on Cal — ideal for scoping and fit
-              checks.
+              Pick a time on Cal — ideal for scoping and fit checks.
             </p>
             <CalEmbedGate />
           </div>

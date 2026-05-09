@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="vfTitle vfDesc">
+  <title id="vfTitle">VizionFit Pro logo and tagline</title>
+  <desc id="vfDesc">Burgundy hexagonal V mark with heart-rate trace and fitness HUD readouts for VizionFit Pro.</desc>
+  <defs>
+    <linearGradient id="vfPanel" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3A0A1A"/>
+      <stop offset="0.55" stop-color="#1A0710"/>
+      <stop offset="1" stop-color="#0A0408"/>
+    </linearGradient>
+    <radialGradient id="vfHalo" cx="800" cy="420" r="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C2185B" stop-opacity="0.42"/>
+      <stop offset="0.55" stop-color="#8B1A3D" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#0A0408" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="vfMark" x1="687" y1="290" x2="913" y2="510" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E91E63"/>
+      <stop offset="0.55" stop-color="#C2185B"/>
+      <stop offset="1" stop-color="#8B1A3D"/>
+    </linearGradient>
+    <filter id="vfGlow" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.94  0 0 0 0 0.12  0 0 0 0 0.39  0 0 0 0.55 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="vfPulseGlow" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 1  0 0 0 0 0.72  0 0 0 0 0  0 0 0 0.65 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="#0A0A0F"/>
+  <rect x="40" y="40" width="1520" height="820" rx="36" fill="url(#vfPanel)" stroke="#2A0913" stroke-width="2"/>
+  <ellipse cx="800" cy="420" rx="500" ry="400" fill="url(#vfHalo)"/>
+
+  <g stroke="#7A1532" stroke-width="1" opacity="0.35" fill="none">
+    <path d="M120 220 H400 M1200 220 H1480"/>
+    <path d="M120 640 H400 M1200 640 H1480"/>
+    <path d="M200 100 V260 M1400 580 V740"/>
+    <circle cx="800" cy="420" r="280" stroke-dasharray="12 16" opacity="0.7"/>
+    <circle cx="800" cy="420" r="200" stroke-dasharray="4 10" opacity="0.6"/>
+  </g>
+
+  <g font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-weight="600" fill="#C2185B">
+    <g>
+      <text x="120" y="180" font-size="22" letter-spacing="3">BPM</text>
+      <text x="120" y="216" font-size="40" fill="#FFB800" letter-spacing="1">142</text>
+      <line x1="120" y1="232" x2="240" y2="232" stroke="#7A1532" stroke-width="2"/>
+    </g>
+    <g text-anchor="end">
+      <text x="1480" y="180" font-size="22" letter-spacing="3">VO&#8322; MAX</text>
+      <text x="1480" y="216" font-size="40" fill="#FFB800" letter-spacing="1">48.2</text>
+      <line x1="1360" y1="232" x2="1480" y2="232" stroke="#7A1532" stroke-width="2"/>
+    </g>
+    <g>
+      <text x="120" y="668" font-size="22" letter-spacing="3">REPS</text>
+      <text x="120" y="704" font-size="40" fill="#FFB800" letter-spacing="1">12 / 4</text>
+      <line x1="120" y1="640" x2="240" y2="640" stroke="#7A1532" stroke-width="2"/>
+    </g>
+    <g text-anchor="end">
+      <text x="1480" y="668" font-size="22" letter-spacing="3">POWER</text>
+      <text x="1480" y="704" font-size="40" fill="#FFB800" letter-spacing="1">320W</text>
+      <line x1="1360" y1="640" x2="1480" y2="640" stroke="#7A1532" stroke-width="2"/>
+    </g>
+  </g>
+
+  <g filter="url(#vfPulseGlow)">
+    <path d="M 90 420 H 540
+             L 562 420 L 580 396 L 596 444 L 612 384 L 628 460 L 644 408 L 660 420
+             H 940
+             L 956 420 L 972 396 L 988 444 L 1004 384 L 1020 460 L 1036 408 L 1052 420
+             H 1510"
+          fill="none" stroke="#FFB800" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <g filter="url(#vfGlow)">
+    <path d="M 800 270 L 920 340 L 920 480 L 800 550 L 680 480 L 680 340 Z"
+          fill="#1A0710" stroke="url(#vfMark)" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M 800 290 L 904 350 L 904 470 L 800 530 L 696 470 L 696 350 Z"
+          fill="none" stroke="#8B1A3D" stroke-width="2" stroke-linejoin="round" opacity="0.55"/>
+
+    <path d="M 736 348 L 800 488 L 864 348"
+          fill="none" stroke="url(#vfMark)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M 736 348 L 800 488 L 864 348"
+          fill="none" stroke="#FFB800" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+
+    <circle cx="800" cy="488" r="9" fill="#FFB800"/>
+  </g>
+
+  <g text-anchor="middle" font-family="'Space Grotesk', 'Inter', system-ui, sans-serif">
+    <text x="800" y="700" fill="#FAFAFA" font-size="92" font-weight="700" letter-spacing="-1">VizionFit Pro</text>
+    <text x="800" y="760" fill="#C2185B" font-size="22" font-weight="600" letter-spacing="10" font-family="'JetBrains Mono', ui-monospace, Menlo, monospace">// TRAINING &#183; TRACKING &#183; TRANSCENDING</text>
+  </g>
+
+  <g fill="#C2185B">
+    <circle cx="100" cy="100" r="6"/>
+    <circle cx="1500" cy="100" r="6"/>
+    <circle cx="100" cy="800" r="6"/>
+    <circle cx="1500" cy="800" r="6"/>
+  </g>
+</svg>

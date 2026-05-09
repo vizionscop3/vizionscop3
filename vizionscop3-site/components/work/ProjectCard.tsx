@@ -34,11 +34,12 @@ export function ProjectCard({
           fill
           className="object-cover transition-transform duration-[var(--duration-slow)] group-hover:scale-[1.02]"
           sizes="(min-width: 1280px) 400px, (min-width: 768px) 40vw, 100vw"
-          quality={85}
+          quality={100}
+          unoptimized={project.heroImage.src.endsWith(".svg")}
         />
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        <Badge tone={statusTone}>{project.status.replace("-", " ")}</Badge>
+        <Badge tone={statusTone}>{project.status.replace(/-/g, " ")}</Badge>
         {project.filters.filter((f) => f !== "all").map((f) => (
           <Badge key={f} tone="default">
             {f}
