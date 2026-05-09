@@ -14,7 +14,11 @@ export async function assertContactRateLimit(ip: string): Promise<void> {
     .gte("created_at", since);
 
   if (error) {
-    throw new Error("Rate limit check failed");
+    console.error("[contact] Rate limit query failed:", error.message);
+    throw new HttpError(
+      503,
+      "We're unable to accept submissions right now. Please email contact@vizionscop3.com.",
+    );
   }
   if ((count ?? 0) >= MAX_PER_WINDOW) {
     throw new HttpError(429, "Too many submissions from this IP");

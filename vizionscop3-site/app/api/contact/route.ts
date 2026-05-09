@@ -18,6 +18,7 @@ function clientIp(req: Request) {
 
 export async function POST(req: Request) {
   try {
+    requireContactEnv();
     const ip = clientIp(req);
     await assertContactRateLimit(ip);
     const json: unknown = await req.json();
@@ -41,8 +42,6 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "Captcha verification failed" }, { status: 400 });
       }
     }
-
-    requireContactEnv();
 
     const supabase = createServiceClient();
     const { data: row, error } = await supabase
@@ -97,6 +96,7 @@ export async function POST(req: Request) {
     if (e instanceof HttpError) {
       return NextResponse.json({ error: e.message }, { status: e.status });
     }
+    console.error("[contact] Unhandled POST error:", e);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
