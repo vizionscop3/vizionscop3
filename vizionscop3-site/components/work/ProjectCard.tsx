@@ -34,7 +34,7 @@ export function ProjectCard({
           fill
           className="object-cover transition-transform duration-[var(--duration-slow)] group-hover:scale-[1.02]"
           sizes="(min-width: 1280px) 400px, (min-width: 768px) 40vw, 100vw"
-          quality={85}
+          quality={100}
         />
       </div>
       <div className="flex flex-wrap items-center gap-2">

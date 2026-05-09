@@ -32,17 +32,32 @@ export default function AboutPage() {
           <Heading level="2" className="text-[var(--color-signal-white)]">
             Origin
           </Heading>
-          <p>
-            [PLACEHOLDER: military service → Pursuit AI Native → early shipped
-            products → why VizionScop3 LLC was formed.]
+          <p className="text-[var(--color-echo-gray)]">
+            At Pursuit, I entered an intensive program that immersed me in the
+            landscape of large language models — evaluating different LLMs to
+            determine which best suited specific use cases. The curriculum,
+            paired with extensive self-directed learning, covered databases,
+            cybersecurity, machine learning, and RAG infrastructure. During this
+            period I began building applications like T-Trac and The Masjid to
+            address pain points I had experienced personally — and as I saw the
+            impact these tools could have on others, the broader vision
+            crystallized: VizionScop3 would become a technical solutions company
+            positioned to serve not only individuals, but nonprofits, small
+            businesses, corporations, and enterprises alike.
           </p>
           <Heading level="2" className="mt-12 text-[var(--color-signal-white)]">
             Beliefs
           </Heading>
           <ul className="list-disc space-y-2 text-[var(--color-echo-gray)]">
-            <li>Accessibility and security are launch requirements.</li>
-            <li>AI features must be observable, bounded, and testable.</li>
-            <li>Small teams win with tight feedback loops and honest scoping.</li>
+            <li>Technology should solve real problems, not perform them.</li>
+            <li>
+              Access is the real frontier — community is who innovation should
+              serve first.
+            </li>
+            <li>
+              Identity is forged through service, and service is forged through
+              discipline.
+            </li>
           </ul>
           <Heading level="2" className="mt-12 text-[var(--color-signal-white)]">
             Stack snapshot

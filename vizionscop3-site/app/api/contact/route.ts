@@ -87,7 +87,7 @@ export async function POST(req: Request) {
     } catch {
       await supabase.from("contact_submissions").delete().eq("id", row.id);
       return NextResponse.json(
-        { error: "Could not deliver inquiry — please try again or email hello@vizionscop3.com" },
+        { error: "Could not deliver inquiry — please try again or email contact@vizionscop3.com" },
         { status: 502 },
       );
     }

@@ -837,7 +837,7 @@ export const siteConfig = {
 
   // Contact
   contact: {
-    email: 'hello@vizionscop3.com',
+    email: 'contact@vizionscop3.com',
     phone: '[PLACEHOLDER]',
     address: {
       city: 'Brooklyn',

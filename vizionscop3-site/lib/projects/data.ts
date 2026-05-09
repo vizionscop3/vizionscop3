@@ -34,8 +34,10 @@ export const projects: Project[] = [
     platform: ["ios", "android", "web"],
     timeline: "[PLACEHOLDER: timeline]",
     heroImage: {
-      ...ph(1920, 1080, "The+Masjid"),
-      alt: "The Masjid app interface preview",
+      src: "/assets/marketing/featured-the-masjid.png",
+      width: 213,
+      height: 150,
+      alt: "The Masjid logo and tagline — marketing graphic",
       caption: "[PLACEHOLDER: hero caption]",
     },
     galleryImages: [
@@ -127,8 +129,10 @@ export const projects: Project[] = [
     platform: ["ios", "android"],
     timeline: "[PLACEHOLDER: timeline]",
     heroImage: {
-      ...ph(1920, 1080, "T-Trac"),
-      alt: "T-Trac app shell preview (no real user data)",
+      src: "/assets/marketing/featured-t-trac.png",
+      width: 213,
+      height: 150,
+      alt: "T-Trac logo and tagline — marketing graphic (no real user data)",
       caption: "UI shell only — no real user data in marketing screenshots.",
     },
     galleryImages: [
@@ -218,14 +222,18 @@ export const projects: Project[] = [
     platform: ["ios", "android"],
     timeline: "[PLACEHOLDER: timeline]",
     heroImage: {
-      ...ph(1920, 1080, "VizionFit"),
+      src: "/assets/work/vizionfit-pro-hero.png",
+      width: 213,
+      height: 150,
       alt: "VizionFit Pro product preview",
       caption: "[PLACEHOLDER]",
     },
     galleryImages: [
       {
-        ...ph(1200, 800, "VF+1"),
-        alt: "[PLACEHOLDER]",
+        src: "/assets/work/vizionfit-pro-hero.png",
+        width: 213,
+        height: 150,
+        alt: "VizionFit Pro HUD-style product mark",
         caption: "[PLACEHOLDER]",
       },
     ],

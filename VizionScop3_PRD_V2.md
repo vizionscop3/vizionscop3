@@ -452,7 +452,7 @@ LIVE → The Masjid: 36,313+ hadiths indexed
 - Submit button
 
 **7.5.3 Alternative contact**
-- Email: hello@vizionscop3.com (or your domain)
+- Email: contact@vizionscop3.com (or your domain)
 - "Prefer to talk first? Schedule a 30-min discovery call →" (Cal.com link)
 
 **7.5.4 What happens next**

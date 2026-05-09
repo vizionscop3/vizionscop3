@@ -14,7 +14,7 @@ export const siteConfig = {
     title: "Founder & CEO",
   },
   contact: {
-    email: "hello@vizionscop3.com",
+    email: "contact@vizionscop3.com",
     phone: "[PLACEHOLDER: business phone]",
     address: {
       line1: "[PLACEHOLDER: registered LLC street address]",
